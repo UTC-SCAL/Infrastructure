@@ -4,6 +4,18 @@
 Audio classification feature demo\
 Detailed description can be found [here](https://www.iotforall.com/tensorflow-sound-classification-machine-learning-applications/)
 
+## Hardware
+
+### Minimum Requirements:
+
+* Microphone (through any input) **set as the system default input device.**
+
+
+### Suggested Requirements:
+
+* Microphone (through any input) **set as the system default input device.**
+* CUDA-enabled GPU
+
 ## Installation
 * Get a copy of this repo
 * Install system packages
