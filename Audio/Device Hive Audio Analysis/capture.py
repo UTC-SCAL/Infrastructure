@@ -24,7 +24,6 @@ from log_config import LOGGING
 from audio.captor import Captor
 from audio.processor import WavProcessor, format_predictions
 
-
 parser = argparse.ArgumentParser(description='Capture and process audio')
 parser.add_argument('--min_time', type=float, default=5, metavar='SECONDS',
                     help='Minimum capture time')
@@ -33,7 +32,6 @@ parser.add_argument('--max_time', type=float, default=7, metavar='SECONDS',
 parser.add_argument('-s', '--save_path', type=str, metavar='PATH',
                     help='Save captured audio samples to provided path',
                     dest='path')
-
 
 logging.config.dictConfig(LOGGING)
 logger = logging.getLogger('audio_analysis.capture')
@@ -53,7 +51,6 @@ class Capture(object):
                 raise FileNotFoundError('"{}" doesn\'t exist'.format(path))
             if not os.path.isdir(path):
                 raise FileNotFoundError('"{}" isn\'t a directory'.format(path))
-
         self._save_path = path
         self._ask_data = threading.Event()
         self._captor = Captor(min_time, max_time, self._ask_data, self._process)
@@ -76,20 +73,16 @@ class Capture(object):
 
                 self._ask_data.clear()
                 if self._save_path:
-                    f_path = os.path.join(
-                        self._save_path, 'record_{:.0f}.wav'.format(time.time())
-                    )
+                    f_path = os.path.join(self._save_path, 'record_{:.0f}.wav'.format(time.time()))
                     wavfile.write(f_path, self._sample_rate, self._process_buf)
-                    logger.info('"{}" saved.'.format(f_path))
 
-                logger.info('Start processing.')
-                predictions = proc.get_predictions(
-                    self._sample_rate, self._process_buf)
-                logger.info(
-                    'Predictions: {}'.format(format_predictions(predictions))
-                )
+                predictions = proc.get_predictions(self._sample_rate, self._process_buf)
+                for prediction in predictions:
+                    # Limit to only 75% confident results:
+                    if prediction[1] > .75:
+                        print(prediction[0])
+                        print(prediction[1])
 
-                logger.info('Stop processing.')
                 self._process_buf = None
                 self._ask_data.set()
 
