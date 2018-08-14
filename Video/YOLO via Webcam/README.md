@@ -15,4 +15,6 @@ You will also need to download the [Darkflow](https://github.com/thtrieu/darkflo
 
 To run this, you'll also need [this model](https://pjreddie.com/media/files/yolov2.weights) for analysis. It is not included in this repository as the size was too large. You will need to place this file in a directory called `weights` that sits alongside `run.py`.
 
-Lastly, it is run with the command `python run.py`. The Tensorflow Network will be built and might output some logging info, but if it's working you should see video on your screen with objects outlined!
+## Running
+
+Run with the command `python run.py`. The Tensorflow Network will be built and might output some logging info, but if it's working you should see video on your screen with objects outlined!
