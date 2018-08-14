@@ -24,4 +24,4 @@ Alongside these system dependencies, there are also a variety of python dependen
 	conda install -c conda-forge resampy
 	
 
-To run this, you'll also need [this model](https://s3.amazonaws.com/audioanalysis/models.tar.gz) for analysis. It is not included in this repository as the size was too large. Unzip this tarball and place it in the "Device Hive Audio Analysis" directory, alongside the existing `capture.py` and other files in that directory.
+To run this, you'll also need [this model](https://s3.amazonaws.com/audioanalysis/models.tar.gz) for analysis. It is not included in this repository as the size was too large. Unzip this tarball and place it in this directory, alongside the existing `capture.py` file and other files in that directory.
