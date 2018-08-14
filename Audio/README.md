@@ -20,7 +20,7 @@ This project has two system-level dependencies, `libportaudio2` and `portaudio19
 Alongside these system dependencies, there are also a variety of python dependencies:
 
 	conda install -c anaconda pyaudio
-	conda install -c conda-forge tensorflow
+	conda install -c conda-forge tensorflow-gpu
 	conda install -c conda-forge resampy
 	
 
