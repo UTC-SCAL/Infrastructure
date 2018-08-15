@@ -6,6 +6,17 @@ Originally intended to use SoNYC, this project now uses [Device Hive's Audio Ana
 
 ### Primary Language Used: Python 3
 
+### Hardware
+
+#### Minimum Requirements:
+
+- Microphone (through any input) set as the default input device.
+
+#### Suggested Requirements:
+
+- Microphone (through any input) set as the default input device.
+- CUDA-enabled GPU 
+
 ## Dependencies:
 
 This project has two system-level dependencies, `libportaudio2` and `portaudio19-dev`.
@@ -28,3 +39,7 @@ Alongside these system dependencies, there are also a variety of python dependen
 	
 
 To run this, you'll also need [this model](https://s3.amazonaws.com/audioanalysis/models.tar.gz) for analysis. It is not included in this repository as the size was too large. Unzip this tarball and place it in this directory, alongside the existing `capture.py` file and other files in that directory.
+
+## Running
+
+`python capture.py` captures audio live and directly outputs to the Kafka server the results
