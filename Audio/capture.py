@@ -25,6 +25,7 @@ from audio.captor import Captor
 from audio.processor import WavProcessor, format_predictions
 from log_config import LOGGING
 from kafka import KafkaProducer
+import configparser
 
 parser = argparse.ArgumentParser(description='Capture and process audio')
 parser.add_argument('--min_time', type=float, default=5, metavar='SECONDS',
@@ -37,6 +38,9 @@ parser.add_argument('-s', '--save_path', type=str, metavar='PATH',
 
 logging.config.dictConfig(LOGGING)
 logger = logging.getLogger('audio_analysis.capture')
+
+config = configparser.ConfigParser();
+config.read('config.ini')
 
 
 class Capture(object):
@@ -67,7 +71,7 @@ class Capture(object):
     def _process_loop(self):
         with WavProcessor() as proc:
             self._ask_data.set()
-            producer = KafkaProducer(bootstrap_servers='sckafka1.simcenter.utc.edu:9092')
+            producer = KafkaProducer(bootstrap_servers=config['KAFKA']['bootstrap_servers'])
 
             while True:
                 if self._process_buf is None:
@@ -84,7 +88,7 @@ class Capture(object):
 
                 for prediction in predictions:
                     if prediction[1] > 0.4:
-                        producer.send("audio_test", bytes(str(prediction[0]).encode()))
+                        producer.send(config['KAFKA']['topic'], bytes(str(prediction[0]).encode()))
                         print(prediction[0])
 
                 self._process_buf = None
