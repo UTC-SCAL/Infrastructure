@@ -17,7 +17,6 @@ import logging.config
 import os
 import threading
 import time
-import json
 
 import numpy as np
 from scipy.io import wavfile
@@ -25,7 +24,6 @@ from scipy.io import wavfile
 from audio.captor import Captor
 from audio.processor import WavProcessor, format_predictions
 from log_config import LOGGING
-from flask import jsonify
 from kafka import KafkaProducer
 
 parser = argparse.ArgumentParser(description='Capture and process audio')
