@@ -12,6 +12,8 @@ This project has two system-level dependencies, `libportaudio2` and `portaudio19
 
 **macOS install:**
 
+	brew install pyaudio
+
 **Linux install:**
 
 	sudo apt-get install libportaudio2
@@ -22,6 +24,7 @@ Alongside these system dependencies, there are also a variety of python dependen
 	conda install -c anaconda pyaudio
 	conda install -c conda-forge tensorflow-gpu
 	conda install -c conda-forge resampy
+	conda install -c conda-forge kafka-python
 	
 
 To run this, you'll also need [this model](https://s3.amazonaws.com/audioanalysis/models.tar.gz) for analysis. It is not included in this repository as the size was too large. Unzip this tarball and place it in this directory, alongside the existing `capture.py` file and other files in that directory.
