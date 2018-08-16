@@ -6,6 +6,8 @@ Originally intended to use SoNYC, this project now uses [Device Hive's Audio Ana
 
 ### Primary Language Used: Python 3
 
+You can use Pipenv with this repository but you will still need to follow the darkflow directions below.
+
 ## Dependencies:
 
 	conda install -c conda-forge kafka-python

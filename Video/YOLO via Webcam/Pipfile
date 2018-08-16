@@ -6,12 +6,10 @@ name = "pypi"
 [dev-packages]
 
 [packages]
-pyaudio = "*"
 tensorflow = {version = "*", sys_platform = "== 'darwin'"}
 tensorflow-gpu = {version = "*", sys_platform = "!= 'darwin'"}
-resampy = "*"
 kafka = "*"
-configparser = "*"
+opencv-python = "*"
 
 [requires]
 python_version = "3.6"
