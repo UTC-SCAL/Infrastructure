@@ -25,6 +25,7 @@ from audio.captor import Captor
 from audio.processor import WavProcessor, format_predictions
 from log_config import LOGGING
 from kafka import KafkaProducer
+from kafka.errors import NoBrokersAvailable
 import configparser
 
 parser = argparse.ArgumentParser(description='Capture and process audio')
@@ -71,7 +72,11 @@ class Capture(object):
     def _process_loop(self):
         with WavProcessor() as proc:
             self._ask_data.set()
-            producer = KafkaProducer(bootstrap_servers=config['KAFKA']['bootstrap_servers'])
+            try:
+                producer = KafkaProducer(bootstrap_servers=config['KAFKA']['bootstrap_servers'])
+            except NoBrokersAvailable:
+                producer = None
+                print("No brokers available, running off-line")
 
             while True:
                 if self._process_buf is None:
@@ -88,7 +93,8 @@ class Capture(object):
 
                 for prediction in predictions:
                     if prediction[1] > 0.4:
-                        producer.send(config['KAFKA']['topic'], bytes(str(prediction[0]).encode()))
+                        if producer is not None:
+                            producer.send(config['KAFKA']['topic'], bytes(str(prediction[0]).encode()))
                         print(prediction[0])
 
                 self._process_buf = None
