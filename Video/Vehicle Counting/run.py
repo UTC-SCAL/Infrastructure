@@ -10,6 +10,7 @@ import threading
 import dlib
 from pyimagesearch.centroidtracker import CentroidTracker
 from pyimagesearch.trackableobject import TrackableObject
+from darkflow.net.build import TFNet
 
 app = Flask(__name__)
 frame_for_stream = None
