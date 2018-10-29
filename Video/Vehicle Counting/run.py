@@ -5,13 +5,50 @@ import cv2
 import imutils
 import numpy as np
 from imutils.video import FPS
-
+from flask import Flask, render_template, Response
+import threading
 import dlib
 from pyimagesearch.centroidtracker import CentroidTracker
 from pyimagesearch.trackableobject import TrackableObject
 
+app = Flask(__name__)
+frame_for_stream = None
+
+###############################################################
+#                       Footage Streaming                     #
+###############################################################
+@app.route('/')
+def index():
+    """Where the server URL directs to."""
+    return render_template('index.html')
+
+
+def gen():
+    """A generator for the processed YOLO image."""
+    while True:
+        frame = get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+def get_frame():
+    """Retrieve the decoded frame."""
+    global frame_for_stream
+    ret, jpeg = cv2.imencode('.jpg', frame_for_stream)
+    return jpeg.tobytes()
+
+
 
 def main(args):
+    global frame_for_stream
+    
+
     classes = ["background", "aeroplane", "bike", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow",
                "dining_table", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
     net = cv2.dnn.readNetFromCaffe("./bin/prototxt.prototxt", "./bin/model.caffemodel")
@@ -117,7 +154,10 @@ def main(args):
                 cv2.putText(frame, text, (10, height - ((i * 20) + 20)),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
 
-            cv2.imshow("Frame", frame)
+            if args["web_share"]:
+                frame_for_stream = frame.copy()
+            else:
+                cv2.imshow("Counting Stream", frame)
             key = cv2.waitKey(1) & 0xFF
 
             if key == ord('q'):
@@ -139,5 +179,13 @@ if __name__ == "__main__":
                     help="minimum probability to filter weak detections")
     ap.add_argument("-s", "--skip-frames", type=int, default=30,
                     help="number of skip frames between detections")
+    ap.add_argument("-w", "--web-share", type=bool, default=False, help="share video stream to webserver on port 3030")
     ag = vars(ap.parse_args())
-    main(ag)
+
+
+    if ag["web_share"]:
+        main_thread = threading.Thread(target=main, args=(ag,))
+        main_thread.start()
+        app.run(host='0.0.0.0', port=3030, debug=False, threaded=True)
+    else:
+        main(ag)
