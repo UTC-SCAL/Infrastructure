@@ -14,11 +14,10 @@ from pyimagesearch.trackableobject import TrackableObject
 def main(args):
     classes = ["background", "aeroplane", "bike", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow",
                "dining_table", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
-    net = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
+    net = cv2.dnn.readNetFromCaffe("./bin/prototxt.prototxt", "./bin/model.caffemodel")
 
     cap = cv2.VideoCapture()
-    # cap.open("<ip>")
-    cap.open(0)
+    cap.open("http://root:B1XWQb^r58nE@Xw@10.199.51.32/axis-cgi/mjpg/video.cgi?resolution=480x270")
     ct = CentroidTracker(maxDisappeared=40, maxDistance=50)
 
     width, height = None, None
@@ -30,9 +29,12 @@ def main(args):
 
     while True:
         try:
-            _, frame = cap.read()
+            ret, frame = cap.read()
 
-            frame = imutils.resize(frame, width=500)
+            if not ret:
+                continue
+
+            # frame = imutils.resize(frame, width=500)
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
             if width is None or height is None:
@@ -105,8 +107,8 @@ def main(args):
                     frame, (centroid[0], centroid[1]), 4, (0, 255, 0), -1)
 
             info = [
-                ("Up", total_up),
-                ("Down", total_down),
+                ("West", total_up),
+                ("East", total_down),
                 ("Status", status)
             ]
 
@@ -133,10 +135,6 @@ def main(args):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("-p", "--prototxt", required=True,
-                    help="path to Caffe 'deploy' prototxt file")
-    ap.add_argument("-m", "--model", required=True,
-                    help="path to Caffe pre-trained model")
     ap.add_argument("-c", "--confidence", type=float, default=0.4,
                     help="minimum probability to filter weak detections")
     ap.add_argument("-s", "--skip-frames", type=int, default=30,

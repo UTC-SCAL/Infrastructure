@@ -19,6 +19,12 @@ Uses a camera feed to count the running total of people, cars and busses using O
 
 Run with the command:
 
-`pipenv run python run.py -p mobilenet_ssd/MobileNetSSD_deploy.prototxt -m mobilenet_ssd/MobileNetSSD_deploy.caffemodel`, or
+`pipenv run python run.py`, or
 
-`python run.py -p mobilenet_ssd/MobileNetSSD_deploy.prototxt -m mobilenet_ssd/MobileNetSSD_deploy.caffemodel` if using Conda
+`python run.py` if using Conda
+
+Optional Arguments:
+
+`-c, --confidence <int>`: minimum probability to filter weak detections
+
+`-s, --skip-frames <int>`: number of skip frames between detections 
