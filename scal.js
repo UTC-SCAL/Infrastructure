@@ -32,3 +32,18 @@ function copyURL(link, element) {
     element._tippy.setContent("Copied!");
 }
 
+function hideVideo(element) {
+    const video = document.getElementById("counting_feed")
+    var hidden = video.style.display === "none" ? true : false;
+    console.log(hidden);
+    if (!hidden) {
+        video.setAttribute("style", "display: none");
+    }
+    else {
+        video.removeAttribute("style")
+    }
+    hidden = !hidden;
+
+    element.innerText = hidden ? "Show Live Stream" : "Hide Live Stream";
+}
+

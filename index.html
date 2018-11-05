@@ -27,33 +27,35 @@
             </div>
         </div>
 
-        <div class="ui vertical stripe quote segment">
-            <h2 id='counter'>
-                <i class='ui linkify icon' id="counter_icon" onclick="copyURL('http://utc-scal-testbed.com#counter', this)"></i>
-                Vehicle and Pedestrian Counting using YOLO
-            </h2>
+        <div class="ui vertical stripe segment">
+
             <div style="max-width: 1920px; max-height: 1080px; width: 80%; margin: auto;">
+                <h2 id='counter'>
+                    <i class='ui linkify icon' id="counter_icon" onclick="copyURL('http://utc-scal-testbed.com#counter', this)"></i>
+                    Vehicle and Pedestrian Counting using YOLO
+                </h2>
+                <div class="ui button" onclick="hideVideo(this)">Hide Live Stream</div>
                 <!-- TODO: Eventually have toggle switches above the iFrame to change src of feed between cams -->
-                <iframe src="http://150.182.130.194:3030" frameborder='0' class='counter'></iframe>
+                <iframe src="http://150.182.130.194:3030" frameborder='0' class='counter' scrolling="no" id="counting_feed"></iframe>
             </div>
             <div class="info_panel">
                 <h2><i class="info icon"></i>More Information:</h2>
                 <p>
-                    This is done using <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO (You Only Look
-                        Once)</a>, a Convolutional Neural Network (CNN) that has been trained to detect a variety of
-                    different objects. This project in particular uses <a href="https://pjreddie.com/darknet/yolov2/"
-                        target="_blank">YOLO v2</a>, which can detect 80 different kinds of objects!<br>
-                    This project also uses <a href="https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/"
-                        target="_blank">PyImageSearch's Object Tracking</a>. Originally it utilized a Caffe model, but
-                    that was found to be quite inefficient and required much lower quality footage (thus reducing
-                    accuracy as well). Instead of suffering in quality and accuracy, the team decided to utilize YOLO's
-                    accurate detection with PyImageSearch's accurate tracking. The result is shown above (unless the
-                    processing server is offline).
+                    This is done using <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO (You Only
+                        Look Once)</a>, a Convolutional Neural Network (CNN) that has been trained to detect a variety
+                    of different objects. This project in particular uses
+                    <a href="https://pjreddie.com/darknet/yolov2/" target="_blank">YOLO v2</a>, which can detect 80
+                    different kinds of objects!<br> This project also uses
+                    <a href="https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/" target="_blank">PyImageSearch's
+                        Object Tracking</a>. Originally it utilized a Caffe model, but that was found to be quite
+                    inefficient and required much lower quality footage (thus reducing accuracy as well). Instead of
+                    suffering in quality and accuracy, the team decided to utilize YOLO's accurate detection with
+                    PyImageSearch's accurate tracking. The result is shown above (unless the processing server is
+                    offline).
                 </p>
             </div>
         </div>
     </div>
-
     <input type="text" value="Hello World" id="copyText" style="display:none;">
 
 </body>
