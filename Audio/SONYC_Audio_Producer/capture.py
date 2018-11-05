@@ -40,7 +40,7 @@ parser.add_argument('-s', '--save_path', type=str, metavar='PATH',
 logging.config.dictConfig(LOGGING)
 logger = logging.getLogger('audio_analysis.capture')
 
-config = configparser.ConfigParser();
+config = configparser.ConfigParser()
 config.read('config.ini')
 
 
@@ -60,7 +60,8 @@ class Capture(object):
                 raise FileNotFoundError('"{}" isn\'t a directory'.format(path))
         self._save_path = path
         self._ask_data = threading.Event()
-        self._captor = Captor(min_time, max_time, self._ask_data, self._process)
+        self._captor = Captor(min_time, max_time,
+                              self._ask_data, self._process)
 
     def start(self):
         self._captor.start()
@@ -73,7 +74,8 @@ class Capture(object):
         with WavProcessor() as proc:
             self._ask_data.set()
             try:
-                producer = KafkaProducer(bootstrap_servers=config['KAFKA']['bootstrap_servers'])
+                producer = KafkaProducer(
+                    bootstrap_servers=config['KAFKA']['bootstrap_servers'])
             except NoBrokersAvailable:
                 producer = None
                 print("No brokers available, running off-line")
@@ -86,15 +88,18 @@ class Capture(object):
 
                 self._ask_data.clear()
                 if self._save_path:
-                    f_path = os.path.join(self._save_path, 'record_{:.0f}.wav'.format(time.time()))
+                    f_path = os.path.join(
+                        self._save_path, 'record_{:.0f}.wav'.format(time.time()))
                     wavfile.write(f_path, self._sample_rate, self._process_buf)
 
-                predictions = proc.get_predictions(self._sample_rate, self._process_buf)
+                predictions = proc.get_predictions(
+                    self._sample_rate, self._process_buf)
 
                 for prediction in predictions:
                     if prediction[1] > 0.4:
                         if producer is not None:
-                            producer.send(config['KAFKA']['topic'], bytes(str(prediction[0]).encode()))
+                            producer.send(config['KAFKA']['topic'], bytes(
+                                str(prediction[0]).encode()))
                         print(prediction[0])
 
                 self._process_buf = None

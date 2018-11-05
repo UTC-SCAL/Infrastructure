@@ -1,4 +1,4 @@
-#VideoStreamer producers raw video streams to a Kafka topic specified in the config file.
+"""VideoStreamer producers raw video streams to a Kafka topic specified in the config file."""
 import time
 import cv2
 from kafka import KafkaProducer
@@ -6,6 +6,7 @@ from kafka import KafkaProducer
 producer = KafkaProducer(bootstrap_servers='BOOTSTRAP_SERVERS_HERE')
 # Assign a topic
 topic = 'TOPIC_NAME_HERE'
+
 
 def video_emitter(video):
     # Open the video
@@ -25,6 +26,7 @@ def video_emitter(video):
         time.sleep(0.2)
     # clear the capture
     video.release()
+
 
 if __name__ == '__main__':
     video_emitter('CAMERA_IP_ADDRESS')

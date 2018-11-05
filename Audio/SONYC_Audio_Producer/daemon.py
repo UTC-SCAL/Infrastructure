@@ -110,7 +110,8 @@ class Daemon(Server):
                 self._ask_data_event.clear()
                 if self._save_path:
                     f_path = os.path.join(
-                        self._save_path, 'record_{:.0f}.wav'.format(time.time())
+                        self._save_path, 'record_{:.0f}.wav'.format(
+                            time.time())
                     )
                     wavfile.write(f_path, self._sample_rate, self._process_buf)
                     logger.info('"{}" saved'.format(f_path))

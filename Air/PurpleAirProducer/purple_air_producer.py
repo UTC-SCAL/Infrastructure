@@ -4,15 +4,18 @@ from kafka import KafkaProducer
 import configparser
 
 app = Flask(__name__)
-config = configparser.ConfigParser();
+config = configparser.ConfigParser()
 config.read('config.ini')
-producer = KafkaProducer(bootstrap_servers=config['KAFKA']['bootstrap_servers'])
+producer = KafkaProducer(
+    bootstrap_servers=config['KAFKA']['bootstrap_servers'])
+
 
 @app.route('/api', methods=['POST'])
 def foo():
     if not request.json:
         abort(400)
-    producer.send(config['KAFKA']['topic'], bytes(str(request.get_data()).encode()))
+    producer.send(config['KAFKA']['topic'], bytes(
+        str(request.get_data()).encode()))
     return ('', 200)
 
 

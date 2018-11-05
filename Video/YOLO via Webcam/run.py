@@ -37,7 +37,8 @@ def draw_yolo_results(results, img):
         y = result['topleft']['y']
         w = result['bottomright']['x'] - x
         h = result['bottomright']['y'] - y
-        cv2.rectangle(img, (x, y), (x + w, y + h), (get_color_from_label(result['label'])), 4)
+        cv2.rectangle(img, (x, y), (x + w, y + h),
+                      (get_color_from_label(result['label'])), 4)
         cv2.putText(img, "{}: {}".format(result['label'], "%.2f" % result['confidence']), (x, y - 16),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (get_color_from_label(result['label'])), 1)
     return img
@@ -73,6 +74,8 @@ def main(tfnet, producer):
 
 
 if __name__ == "__main__":
-    tfnet = TFNet({"model": "cfg/yolo.cfg", "load": "weights/yolov2.weights", "threshold": 0.6, "gpu": 1.0})
-    producer = KafkaProducer(bootstrap_servers='sckafka1.simcenter.utc.edu:9092')
+    tfnet = TFNet({"model": "cfg/yolo.cfg",
+                   "load": "weights/yolov2.weights", "threshold": 0.6, "gpu": 1.0})
+    producer = KafkaProducer(
+        bootstrap_servers='sckafka1.simcenter.utc.edu:9092')
     main(tfnet, producer)
