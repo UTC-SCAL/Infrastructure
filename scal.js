@@ -1,4 +1,21 @@
-function copyURL(link) {
+var tooltips = []
+
+function init() {
+    tooltips.push(
+        tippy('#counter_icon', {
+            content: "Copy to Clipboard",
+            delay: 100,
+            arrow: true,
+            arrowType: 'round',
+            size: 'large',
+            duration: 500,
+            animation: 'scale',
+            hideOnClick: false
+        })
+    )
+}
+
+function copyURL(link, element) {
     document.getElementById("copyText").value = link;
     document.getElementById("copyText").removeAttribute("style")
     /* Get the text field */
@@ -11,6 +28,7 @@ function copyURL(link) {
     document.execCommand("copy");
 
     /* Alert the copied text */
-    alert("Copied the text: " + document.getElementById("copyText").value);
     document.getElementById("copyText").setAttribute("style", "display:none");
+    element._tippy.setContent("Copied!");
 }
+

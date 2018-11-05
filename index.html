@@ -9,6 +9,7 @@
     <script src="./Libraries/jquery-3.1.1.js"></script>
     <script src="./Libraries/semantic/out/semantic.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@3/dist/tippy.all.min.js"></script>
     <script src="scal.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./Libraries/semantic/out/semantic.min.css">
@@ -16,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="scal.css">
 </head>
 
-<body>
+<body onload="init()">
     <div class="pusher">
         <div class="ui inverted vertical masthead center aligned segment">
             <div class="ui text container">
@@ -28,7 +29,7 @@
 
         <div class="ui vertical stripe quote segment">
             <h2 id='counter'>
-                <i class='ui linkify icon' onclick="copyURL('http://utc-scal-testbed.com#counter')"></i>
+                <i class='ui linkify icon' id="counter_icon" onclick="copyURL('http://utc-scal-testbed.com#counter', this)"></i>
                 Vehicle and Pedestrian Counting using YOLO
             </h2>
             <div style="max-width: 1920px; max-height: 1080px; width: 80%; margin: auto;">
