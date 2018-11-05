@@ -12,7 +12,17 @@ The purpose of this GitHub Repository is to serve as a contribution grounds for 
 
 ![](https://i.imgur.com/YnIDyGN.png)
 
-## Contributions
+## Contributing
+
+### Branches:
+
+This repository has three branches:
+
+1. `production`: modules that are complete **with Kafka integration**.
+2. `dev`: modules that are WIP or lack Kafka integration.
+3. `demo`: module web-demos that may or may not use Kafka at all
+
+___
 
 UTC members can (after being added to this repository officially) modify the master branch as they wish. Any large or unstable changes made are *suggested* to be placed in a separate branch of the main repository (such as "unstable-mm/dd/yy" or "unstable-cam_addition", something of the sort that makes it discernable). 
 
@@ -24,9 +34,9 @@ Non-UTC members can start contributing by forking this repository and creating P
 
 Along with this, each sensor should have its own subfolder in this repository. For example, when cloning the repository, an ls of the directory should look like this:
 
-	Purple Air PAII
-	Axis ...
-	.
+    Purple Air PAII
+    Axis ...
+    .
 	.
 	.
 	README.md
