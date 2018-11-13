@@ -28,16 +28,21 @@
         </div>
 
         <div class="ui vertical stripe segment">
+            
+            <!-- Header -->
+            <h2 id="counter" class="section_header">
+                <i class="ui linkify icon" id="counter_icon" onclick="copyURL('http://utc-scal-testbed.com#counter', this)"></i>
+                Vehicle and Pedestrian Counting using YOLO
+            </h2>
 
-            <div style="max-width: 1920px; max-height: 1080px; width: 80%; margin: auto;">
-                <h2 id='counter'>
-                    <i class='ui linkify icon' id="counter_icon" onclick="copyURL('http://utc-scal-testbed.com#counter', this)"></i>
-                    Vehicle and Pedestrian Counting using YOLO
-                </h2>
+            <!-- Video itself, with button to hide-->
+            <div style="max-width: 1280px; max-height: 720pxpx; width: 80%; margin: auto;">
                 <div class="ui button" onclick="hideVideo(this)">Hide Live Stream</div>
                 <!-- TODO: Eventually have toggle switches above the iFrame to change src of feed between cams -->
-                <iframe src="http://150.182.130.194:3030" frameborder='0' class='counter' scrolling="no" id="counting_feed"></iframe>
+                <iframe src="http://150.182.130.194:3030" frameborder="0" class="counter" scrolling="no" id="counting_feed"></iframe>
             </div>
+
+            <!-- The information beneath the panel -->
             <div class="info_panel">
                 <h2><i class="info icon"></i>More Information:</h2>
                 <p>
@@ -56,7 +61,7 @@
             </div>
         </div>
     </div>
-    <input type="text" value="Hello World" id="copyText" style="display:none;">
+    <input type="text" value="http://utc-scal-testbed.com" id="copyText" style="display:none;">
 
 </body>
 
