@@ -50,6 +50,7 @@
 
                 <div class="ui embed" data-url="http://150.182.130.194:3030/video_feed" id="counting_feed" style="display: none;">
                     <script>
+                        // Check to see if it can hit the video feed:
                         $.ajax({url: "http://150.182.130.194:3030/video_feed",
                                 type: "HEAD",
                                 timeout:1000,
