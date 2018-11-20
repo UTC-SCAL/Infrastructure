@@ -11,7 +11,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/tippy.js@3/dist/tippy.all.min.js"></script>
     <script src="scal.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./Libraries/semantic/out/semantic.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="scal.css">
@@ -28,18 +27,52 @@
         </div>
 
         <div class="ui vertical stripe segment">
-            
+
             <!-- Header -->
             <h2 id="counter" class="section_header">
                 <i class="ui linkify icon" id="counter_icon" onclick="copyURL('http://utc-scal-testbed.com#counter', this)"></i>
                 Vehicle and Pedestrian Counting using YOLO
             </h2>
 
-            <!-- Video itself, with button to hide-->
-            <div style="max-width: 1280px; max-height: 720pxpx; width: 80%; margin: auto;">
-                <div class="ui button" onclick="hideVideo(this)">Hide Live Stream</div>
-                <!-- TODO: Eventually have toggle switches above the iFrame to change src of feed between cams -->
-                <iframe src="http://150.182.130.194:3030" frameborder="0" class="counter" scrolling="no" id="counting_feed"></iframe>
+            <div style="width: 77%; margin: auto;">
+                <div class="ui button" id="hide_counting_feed_button" onclick="hideVideo(this)" style="display: none;">Hide Live Stream</div>
+                <center>
+                    <div class="ui huge steps" id="counting_feed_err" style="display: none;">
+                        <div class="step">
+
+                            <i class="large icons">
+                                <i class="red video icon"></i>
+                                <!-- <i class="red dont icon"></i> -->
+                            </i>Video Feed is Currently Offline
+                        </div>
+                    </div>
+                </center>
+
+                <div class="ui embed" data-url="http://150.182.130.194:3030/video_feed" id="counting_feed" style="display: none;">
+                    <script>
+                        $.ajax({url: "http://150.182.130.194:3030/video_feed",
+                                type: "HEAD",
+                                timeout:1000,
+                                statusCode: {
+                                    200: function (response) {
+                                        $('#counting_feed').embed()
+                                        $('#counting_feed_err').hide()
+                                    },
+                                    400: function (response) {
+                                        $('#counting_feed').hide()
+                                        $('#hide_counting_feed_button').hide()
+                                        $('#counting_feed_err').show()
+                                    },
+                                    0: function (response) {
+                                        $('#counting_feed').hide()
+                                        $('#hide_counting_feed_button').hide()
+                                        $('#counting_feed_err').show()
+                                    }              
+                                }
+                        });
+                    </script>
+                </div>
+
             </div>
 
             <!-- The information beneath the panel -->
