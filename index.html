@@ -80,30 +80,37 @@
 
 
             <!-- The information beneath the panel -->
-            <div class="info_panel">
-                <h2><i class="info icon"></i>More Information:</h2>
-                <p>
-                    This is done using <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO (You Only
-                        Look Once)</a>, a Convolutional Neural Network (CNN) that has been trained to detect a variety
-                    of different objects. This project in particular uses
-                    <a href="https://pjreddie.com/darknet/yolov2/" target="_blank">YOLO v2</a>, which can detect 80
-                    different kinds of objects!<br> This project also uses
-                    <a href="https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/" target="_blank">PyImageSearch's
-                        Object Tracking</a>. Originally it utilized a Caffe model, but that was found to be quite
-                    inefficient and required much lower quality footage (thus reducing accuracy as well). Instead of
-                    suffering in quality and accuracy, the team decided to utilize YOLO's accurate detection with
-                    PyImageSearch's accurate tracking. The result is shown above (unless the processing server is
-                    offline).
-                </p>
-                <h4>Results:</h4>
+            <div class="ui text segment">
+                <div class="info_panel">
+                    <h2><i class="info icon"></i>More Information:</h2>
+                    <p>
+                        This is done using <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO (You Only
+                            Look Once)</a>, a Convolutional Neural Network (CNN) that has been trained to detect a
+                        variety
+                        of different objects. This project in particular uses
+                        <a href="https://pjreddie.com/darknet/yolov2/" target="_blank">YOLO v2</a>, which can detect 80
+                        different kinds of objects!<br> This project also uses
+                        <a href="https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/" target="_blank">PyImageSearch's
+                            Object Tracking</a>. Originally it utilized a Caffe model, but that was found to be quite
+                        inefficient and required much lower quality footage (thus reducing accuracy as well). Instead
+                        of
+                        suffering in quality and accuracy, the team decided to utilize YOLO's accurate detection with
+                        PyImageSearch's accurate tracking. The result is shown above (unless the processing server is
+                        offline).
+                    </p>
+                    <h4>Results:</h4>
 
-                Below you can see the results of tracking, categorized by Type. This displays jay walking, bus patterns, and more.
+                    <b>Below you can see the results of tracking, categorized by Type. This displays jay walking, bus
+                        patterns, and more.</b>
 
-                <img class="ui rounded image" src="./Resources/by_type.png">
+                    <img class="ui rounded image" src="./Resources/by_type.png">
 
-                Similarly, the below image shows the results of tracking categorized by Direction. This shows which way traffic is flowing and what flows may be problematic (such as vehicles passing into the bike lane)
+                    <b>Similarly, the below image shows the results of tracking categorized by Direction. This shows
+                        which way traffic is flowing and what flows may be problematic (such as vehicles passing into
+                        the bike lane)</b>
 
-                <img class="ui rounded image" src="./Resources/by_dir.png">
+                    <img class="ui rounded image" src="./Resources/by_dir.png">
+                </div>
             </div>
         </div>
     </div>

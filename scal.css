@@ -54,6 +54,11 @@ a {
 }
 
 body {
+	background-color: #191919;
+	color: #EEEEEE;
+}
+
+.ui.text.segment {
 	background-color: #1E1E1E;
 	color: #EEEEEE;
 }
