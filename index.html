@@ -34,47 +34,50 @@
                 Vehicle and Pedestrian Counting using YOLO
             </h2>
 
-            <div style="width: 77%; margin: auto;">
-                <div class="ui button" id="hide_counting_feed_button" onclick="hideVideo(this)" style="display: none;">Hide Live Stream</div>
+            <!-- Stream Read Error Section: Shown by default -->
+            <div id="counting_feed_err">
                 <center>
-                    <div class="ui huge steps" id="counting_feed_err" style="display: none;">
+                    <div class="ui huge steps">
                         <div class="step">
-
                             <i class="large icons">
                                 <i class="red video icon"></i>
-                                <!-- <i class="red dont icon"></i> -->
                             </i>Video Feed is Currently Offline
                         </div>
                     </div>
                 </center>
+            </div>
 
-                <div class="ui embed" data-url="http://150.182.130.194:3030/video_feed" id="counting_feed" style="display: none;">
-                    <script>
-                        // Check to see if it can hit the video feed:
-                        $.ajax({url: "http://150.182.130.194:3030/video_feed",
+            <div style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;">
+                <div class="ui button" onclick="hideVideo(this)">Hide Live Stream</div>
+            </div>
+
+
+
+            <div style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;" id="video_feed">
+                <!-- TODO: Eventually have toggle switches above the iFrame to change src of feed between cams -->
+                <iframe src="http://150.182.130.194:3030/video_feed" frameborder="0" class="counter" scrolling="no"></iframe>
+            </div>
+
+            <script>
+                // Check to see if it can hit the video feed:
+                    $.ajax({url: "http://150.182.130.194:3030/video_feed",
                                 type: "HEAD",
                                 timeout:1000,
                                 statusCode: {
                                     200: function (response) {
-                                        $('#counting_feed').embed()
                                         $('#counting_feed_err').hide()
                                     },
                                     400: function (response) {
-                                        $('#counting_feed').hide()
-                                        $('#hide_counting_feed_button').hide()
-                                        $('#counting_feed_err').show()
+                                        $('#video_feed').hide()
                                     },
                                     0: function (response) {
-                                        $('#counting_feed').hide()
-                                        $('#hide_counting_feed_button').hide()
-                                        $('#counting_feed_err').show()
+                                        $('#counting_feed_err').hide()
                                     }              
                                 }
                         });
-                    </script>
-                </div>
+                </script>
 
-            </div>
+
 
             <!-- The information beneath the panel -->
             <div class="info_panel">

@@ -33,14 +33,14 @@ function copyURL(link, element) {
 }
 
 function hideVideo(element) {
-    const video = document.getElementById("counting_feed")
+    const video = document.getElementById("video_feed")
     var hidden = video.style.display === "none" ? true : false;
     console.log(hidden);
     if (!hidden) {
-        video.setAttribute("style", "display: none");
+        $(video).hide("slow")
     }
     else {
-        video.removeAttribute("style")
+        $(video).show("slow")
     }
     hidden = !hidden;
 
