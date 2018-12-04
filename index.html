@@ -8,11 +8,11 @@
     <title>UTC's Testbed</title>
     <script src="./Libraries/jquery-3.1.1.js"></script>
     <script src="./Libraries/semantic/out/semantic.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/tippy.js@3/dist/tippy.all.min.js"></script>
+    <script src="./Libraries/bootstrap.min.js"></script>
+    <script src="./Libraries/tippy.all.min.js"></script>
     <script src="scal.js"></script>
     <link rel="stylesheet" type="text/css" href="./Libraries/semantic/out/semantic.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+    <link rel="stylesheet" href="./Libraries/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="scal.css">
 </head>
 
@@ -29,7 +29,7 @@
         <div class="ui vertical stripe segment">
 
             <!-- Header -->
-            <h2 id="counter" class="section_header">
+            <h2 id="counter" class="ui inverted header">
                 <i class="ui linkify icon" id="counter_icon" onclick="copyURL('http://utc-scal-testbed.com#counter', this)"></i>
                 Vehicle and Pedestrian Counting using YOLO
             </h2>
@@ -47,69 +47,69 @@
                 </center>
             </div>
 
-            <div style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;">
-                <div class="ui button" onclick="hideVideo(this)">Hide Live Stream</div>
-            </div>
-
-
 
             <div style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;" id="video_feed">
+                <div class="ui button" onclick="hideVideo(this)">Hide Live Stream</div>
+
                 <!-- TODO: Eventually have toggle switches above the iFrame to change src of feed between cams -->
-                <iframe src="http://150.182.130.194:3030/video_feed" frameborder="0" class="counter" scrolling="no"></iframe>
+                <div class="ui rounded embed" data-url="http://150.182.130.194:3030/video_feed" id="video">
+                </div>
             </div>
 
             <script>
                 // Check to see if it can hit the video feed:
-                    $.ajax({url: "http://150.182.130.194:3030/video_feed",
-                                type: "HEAD",
-                                timeout:1000,
-                                statusCode: {
-                                    200: function (response) {
-                                        $('#counting_feed_err').hide()
-                                    },
-                                    400: function (response) {
-                                        $('#video_feed').hide()
-                                    },
-                                    0: function (response) {
-                                        $('#counting_feed_err').hide()
-                                    }              
-                                }
-                        });
-                </script>
+                $.ajax({url: "http://150.182.130.194:3030/video_feed",
+                            type: "HEAD",
+                            timeout:1000,
+                            statusCode: {
+                                200: function (response) {
+                                    $('#counting_feed_err').hide()
+                                },
+                                400: function (response) {
+                                    $('#video_feed').hide()
+                                },
+                                0: function (response) {
+                                    $('#counting_feed_err').hide()
+                                }              
+                            }
+                    });
+            </script>
 
-
+            <div class="ui horizontal divider"></div>
 
             <!-- The information beneath the panel -->
-            <div class="ui text segment">
+            <div class="ui justified container">
                 <div class="info_panel">
-                    <h2><i class="info icon"></i>More Information:</h2>
-                    <p>
-                        This is done using <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO (You Only
-                            Look Once)</a>, a Convolutional Neural Network (CNN) that has been trained to detect a
-                        variety
-                        of different objects. This project in particular uses
-                        <a href="https://pjreddie.com/darknet/yolov2/" target="_blank">YOLO v2</a>, which can detect 80
-                        different kinds of objects!<br> This project also uses
-                        <a href="https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/" target="_blank">PyImageSearch's
-                            Object Tracking</a>. Originally it utilized a Caffe model, but that was found to be quite
-                        inefficient and required much lower quality footage (thus reducing accuracy as well). Instead
-                        of
-                        suffering in quality and accuracy, the team decided to utilize YOLO's accurate detection with
-                        PyImageSearch's accurate tracking. The result is shown above (unless the processing server is
-                        offline).
-                    </p>
-                    <h4>Results:</h4>
+                    <h2 class="ui inverted header"><i class="info icon"></i>More Information:</h2>
 
-                    <b>Below you can see the results of tracking, categorized by Type. This displays jay walking, bus
-                        patterns, and more.</b>
+                    This is done using <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO (You Only
+                        Look Once)</a>, a Convolutional Neural Network (CNN) that has been trained to detect a
+                    variety
+                    of different objects. This project in particular uses
+                    <a href="https://pjreddie.com/darknet/yolov2/" target="_blank">YOLO v2</a>, which can detect 80
+                    different kinds of objects!<br> This project also uses
+                    <a href="https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/" target="_blank">PyImageSearch's
+                        Object Tracking</a>. Originally it utilized a Caffe model, but that was found to be quite
+                    inefficient and required much lower quality footage (thus reducing accuracy as well). Instead
+                    of
+                    suffering in quality and accuracy, the team decided to utilize YOLO's accurate detection with
+                    PyImageSearch's accurate tracking. The result is shown above (unless the processing server is
+                    offline).
 
-                    <img class="ui rounded image" src="./Resources/by_type.png">
+                    <h4 class="ui inverted header">Results:</h4>
 
-                    <b>Similarly, the below image shows the results of tracking categorized by Direction. This shows
-                        which way traffic is flowing and what flows may be problematic (such as vehicles passing into
-                        the bike lane)</b>
-
-                    <img class="ui rounded image" src="./Resources/by_dir.png">
+                    <div class="ui two column grid">
+                        <div class="ui column">
+                            <img class="ui rounded image" src="./Resources/by_type.png">
+                            Results of tracking, categorized by Type. You can see signs of jay walking, but stop
+                            patterns, and more.
+                        </div>
+                        <div class="ui column">
+                            <img class="ui rounded image" src="./Resources/by_dir.png">
+                            Results of tracking, categorized by Direction. You can see traffic flow and problematic
+                            driving habits (such as drivers drifting into bike or turn lane)
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

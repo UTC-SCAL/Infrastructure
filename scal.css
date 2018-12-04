@@ -59,7 +59,7 @@ body {
 }
 
 .ui.text.segment {
-	background-color: #1E1E1E;
+	background-color: #191919;
 	color: #EEEEEE;
 }
 
@@ -109,22 +109,6 @@ body {
 	height: 6em;
 }
 
-
-.counter {
-	max-width: 1280px;
-	width: 98%;
-	height: 1080px;
-	align-content: center;
-	margin-bottom: -24em;
-	padding: 0;
-	overflow: hidden;
-	pointer-events: none;
-}
-
-#video_feed {
-	margin-bottom: 10em;
-}
-
 .ui.vertical.stripe.quote.segment {
 	margin-left: 3%;
 	margin-right: 3%;
@@ -153,4 +137,8 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 1em;
+}
+
+.ui .justified .text .container{
+	width: 100%;
 }

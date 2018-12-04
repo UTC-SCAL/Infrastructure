@@ -13,6 +13,9 @@ function init() {
             hideOnClick: false
         })
     )
+
+    // Embed the video via JQuery
+    $('#video').embed()
 }
 
 function copyURL(link, element) {
@@ -33,9 +36,8 @@ function copyURL(link, element) {
 }
 
 function hideVideo(element) {
-    const video = document.getElementById("video_feed")
+    const video = document.getElementById("video")
     var hidden = video.style.display === "none" ? true : false;
-    console.log(hidden);
     if (!hidden) {
         $(video).hide("slow")
     }
