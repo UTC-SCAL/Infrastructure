@@ -1,4 +1,6 @@
 var tooltips = []
+var videoPort = 3031
+var lastButtonClicked = null
 
 function init() {
     tooltips.push(
@@ -13,9 +15,6 @@ function init() {
             hideOnClick: false
         })
     )
-
-    // Embed the video via JQuery
-    $('#video').embed()
 }
 
 function copyURL(link, element) {
@@ -48,16 +47,42 @@ function hideVideo(element) {
     element.innerText = hidden ? "Show Live Stream" : "Hide Live Stream";
 }
 
+function changeLiveStream(element, port) {
+    // Check for current button conditions:
+    if (element == lastButtonClicked) {
+        return;
+    }
+    $(element).addClass("active");
+    if (lastButtonClicked !== null) {
+        $(lastButtonClicked).removeClass("active");
+    }
+    lastButtonClicked = element;
+
+    var newURL = document.getElementById("video").getAttribute("data-url")
+    newURL = newURL.replace(videoPort, port)
+    videoPort = port;
+    $('#video').embed('destroy')
+    document.getElementById("video").setAttribute("data-url", newURL)
+    $('#video').embed()
+
+}
+
+
 function checkConnection() {
+    function setVideoIP(ip) {
+        document.getElementById("video").setAttribute("data-url", (ip + ":" + videoPort + "/video_feed"))
+        $('#video').embed()
+        $("#s").click()
+        return ip
+    }
     $.ajax({
-        url: "http://150.182.130.194:3030/video_feed",
+        url: "http://150.182.130.194:" + videoPort + "/video_feed",
         type: "HEAD",
-        timeout: 1000,
+        timeout: 100,
         statusCode: {
             // Can connect
             200: function (response) {
-                console.log(200)
-                $('#counting_feed_err').hide()
+                setVideoIP("http://150.182.130.194")
             },
             // Can't connect
             400: function (response) {
@@ -66,27 +91,19 @@ function checkConnection() {
                     type: "HEAD",
                     statusCode: {
                         200: function (response) {
-                            console.log(400, 200)
-                            // Can connect, do something with embed() replace
-                            $('#counting_feed_err').hide()
-                            document.getElementById("video").setAttribute("data-url", "http://10.199.1.152:3030/video_feed")
-                            $('#video').embed()
+                            setVideoIP("http://10.199.1.152")
                         },
                         400: function (response) {
-                            console.log(400, 400)
-                            // Really can't connect.
-                            $('#video_feed').hide()
-                            $('#video').embed('destroy')
+                            setVideoIP(null)
                         },
                         0: function (response) {
                             // Can connect
-                            console.log(400, 0)
                             if (response.statusText === "error") {
-                                $('#counting_feed_err').hide()
+                                setVideoIP("http://10.199.1.152")
                             } else {
-                                $('#video_feed').hide()
-                                $('#video').embed('destroy')
+                                setVideoIP(null)
                             }
+
                         }
                     }
                 });
@@ -95,38 +112,24 @@ function checkConnection() {
             0: function (response) {
                 // Can connect
                 if (response.statusText === "error") {
-                    $('#counting_feed_err').hide()
+                    setVideoIP("http://150.182.130.194")
                 } else {
                     $.ajax({
-                        url: "http://10.199.1.152:3030/video_feed",
+                        url: "http://10.199.1.152:" + videoPort + "/video_feed",
                         type: "HEAD",
+                        timeout: 100,
                         statusCode: {
                             200: function (response) {
-                                console.log(0, 200)
-                                // Can connect, do something with embed() replace
-                                $('#counting_feed_err').hide()
-                                document.getElementById("video").setAttribute("data-url", "http://10.199.1.152:3030/video_feed")
-                                $('#video').embed()
+                                setVideoIP("http://10.199.1.152")
                             },
                             400: function (response) {
-                                console.log(0, 400)
-                                // Really can't connect.
-                                console.log("Error 400")
-                                $('#video_feed').hide()
-                                $('#video').embed('destroy')
+                                setVideoIP(null)
                             },
                             0: function (response) {
-                                console.log(0, 0)
-                                // Can connect
                                 if (response.statusText === "error") {
-                                    $('#counting_feed_err').hide()
-                                    document.getElementById("video").setAttribute("data-url", "http://10.199.1.152:3030/video_feed")
-                                    $('#video').embed()
-                                    console.log("changing to internal ip")
+                                    setVideoIP("http://10.199.1.152")
                                 } else {
-                                    console.log("ho")
-                                    $('#video_feed').hide()
-                                    $('#video').embed('destroy')
+                                    setVideoIP(null)
                                 }
                             }
                         }

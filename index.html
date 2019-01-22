@@ -28,76 +28,80 @@
 
         <div class="ui vertical stripe segment">
 
-            <!-- Header -->
-            <h2 id="counter" class="ui inverted header">
-                <i class="ui linkify icon" id="counter_icon" onclick="copyURL('http://utc-scal-testbed.com#counter', this)"></i>
-                Vehicle and Pedestrian Counting using YOLO
-            </h2>
-
-            <!-- Stream Read Error Section: Shown by default -->
-            <div id="counting_feed_err">
-                <center>
-                    <div class="ui huge steps">
-                        <div class="step">
-                            <i class="large icons">
-                                <i class="red video icon"></i>
-                            </i>Video Feed is Currently Offline
-                        </div>
-                    </div>
-                </center>
-            </div>
 
 
             <div style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;" id="video_feed">
-                <div class="ui button" onclick="hideVideo(this)">Hide Live Stream</div>
+                <!-- Header -->
+                <h2 id="counter" class="ui inverted header">
+                    <i class="ui linkify icon" id="counter_icon" onclick="copyURL('http://utc-scal-testbed.com#counter', this)"></i>
+                    Vehicle and Pedestrian Counting using YOLO
+                </h2>
 
-                <!-- TODO: Eventually have toggle switches above the iFrame to change src of feed between cams -->
-                <div class="ui rounded embed" data-url="http://150.182.130.194:3030/video_feed" id="video">
+                <div class="ui buttons">
+                    <div class="ui button" onclick="changeLiveStream(this, 3031)" id="s">Anonymous Video Demo</div>
+                    <div class="ui button" onclick="changeLiveStream(this, 3030)">Tracking Video Demo</div>
+                    <div class="ui button" onclick="hideVideo(this)">Hide Live Stream</div>
                 </div>
-            </div>
 
-            <!-- ALT IP: 10.199.1.152 -->
-            <script>
-                checkConnection();
-            </script>
+                <div class="ui rounded embed" data-url="http://150.182.130.194:3031/video_feed" id="video">
+                    <!-- Stream Read Error Section: Shown by default -->
+                    <div id="counting_feed_err">
+                        <center>
+                            <div class="ui huge steps">
+                                <div class="step">
+                                    <i class="large icons">
+                                        <i class="red video icon"></i>
+                                    </i>Video Feed is Currently Offline
+                                </div>
+                            </div>
+                        </center>
+                    </div>
+                </div>
 
-            <div class="ui horizontal divider"></div>
+                <div class="ui horizontal divider"></div>
 
-            <!-- The information beneath the panel -->
-            <div class="ui justified container">
-                <div class="info_panel">
-                    <h2 class="ui inverted header"><i class="info icon"></i>More Information:</h2>
+                <!-- The information beneath the panel -->
+                <div class="ui justified container">
+                    <div class="info_panel">
+                        <h2 class="ui inverted header"><i class="info icon"></i>More Information:</h2>
 
-                    This is done using <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO (You Only
-                        Look Once)</a>, a Convolutional Neural Network (CNN) that has been trained to detect a
-                    variety
-                    of different objects. This project in particular uses
-                    <a href="https://pjreddie.com/darknet/yolov2/" target="_blank">YOLO v2</a>, which can detect 80
-                    different kinds of objects!<br> This project also uses
-                    <a href="https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/" target="_blank">PyImageSearch's
-                        Object Tracking</a>. Originally it utilized a Caffe model, but that was found to be quite
-                    inefficient and required much lower quality footage (thus reducing accuracy as well). Instead
-                    of
-                    suffering in quality and accuracy, the team decided to utilize YOLO's accurate detection with
-                    PyImageSearch's accurate tracking. The result is shown above (unless the processing server is
-                    offline).
+                        This is done using <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO (You Only
+                            Look Once)</a>, a Convolutional Neural Network (CNN) that has been trained to detect a
+                        variety
+                        of different objects. This project in particular uses
+                        <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO v3</a>, which can detect 80
+                        different kinds of objects!<br> This project also uses
+                        <a href="https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/" target="_blank">PyImageSearch's
+                            Object Tracking</a>. Originally it utilized a Caffe model, but that was found to be quite
+                        inefficient and required much lower quality footage (thus reducing accuracy as well). Instead
+                        of
+                        suffering in quality and accuracy, the team decided to utilize YOLO's accurate detection with
+                        PyImageSearch's accurate tracking. The result is shown above (unless the processing server is
+                        offline).
 
-                    <h4 class="ui inverted header">Results:</h4>
+                        <h4 class="ui inverted header">Results:</h4>
 
-                    <div class="ui two column grid">
-                        <div class="ui column">
-                            <img class="ui rounded image" src="./Resources/by_type.png">
-                            Results of tracking, categorized by Type. You can see signs of jay walking, but stop
-                            patterns, and more.
-                        </div>
-                        <div class="ui column">
-                            <img class="ui rounded image" src="./Resources/by_dir.png">
-                            Results of tracking, categorized by Direction. You can see traffic flow and problematic
-                            driving habits (such as drivers drifting into bike or turn lane)
+                        <div class="ui two column grid">
+                            <div class="ui column">
+                                <img class="ui rounded image" src="./Resources/by_type.png">
+                                Results of tracking, categorized by Type. You can see signs of jay walking, but stop
+                                patterns, and more.
+                            </div>
+                            <div class="ui column">
+                                <img class="ui rounded image" src="./Resources/by_dir.png">
+                                Results of tracking, categorized by Direction. You can see traffic flow and problematic
+                                driving habits (such as drivers drifting into bike or turn lane)
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            <script>
+                console.log(checkConnection());
+            </script>
+
         </div>
     </div>
     <input type="text" value="http://utc-scal-testbed.com" id="copyText" style="display:none;">
