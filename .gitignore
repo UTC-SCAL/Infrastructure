@@ -1,7 +1,9 @@
 .DS_Store
+**/logs/
 /weights/
 /__pycache__/
 /.idea/
 */.idea/
 **/*.pyc
 **/.vscode
+**/yolov3.weights
