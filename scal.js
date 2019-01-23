@@ -78,7 +78,7 @@ function checkConnection() {
     $.ajax({
         url: "http://150.182.130.194:" + videoPort + "/video_feed",
         type: "HEAD",
-        timeout: 100,
+        timeout: 1000,
         statusCode: {
             // Can connect
             200: function (response) {
@@ -117,7 +117,7 @@ function checkConnection() {
                     $.ajax({
                         url: "http://10.199.1.152:" + videoPort + "/video_feed",
                         type: "HEAD",
-                        timeout: 100,
+                        timeout: 1000,
                         statusCode: {
                             200: function (response) {
                                 setVideoIP("http://10.199.1.152")
