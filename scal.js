@@ -43,8 +43,9 @@ function hideVideo(element) {
         $(video).show("slow")
     }
     hidden = !hidden;
-
     element.innerText = hidden ? "Show Live Stream" : "Hide Live Stream";
+    $(element).removeClass(!hidden ? "green" : "red")
+    $(element).addClass(hidden ? "green" : "red")
 }
 
 function changeLiveStream(element, port) {

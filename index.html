@@ -28,9 +28,6 @@
         </div>
 
         <div class="ui vertical stripe segment">
-
-
-
             <div style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;" id="video_feed">
                 <!-- Header -->
                 <h2 id="counter" class="ui inverted header">
@@ -38,26 +35,29 @@
                     Vehicle and Pedestrian Counting using YOLO
                 </h2>
 
-                <div class="ui buttons">
-                    <div class="ui button" onclick="changeLiveStream(this, 3031)" id="s">Anonymous Video Demo</div>
-                    <div class="ui button" onclick="changeLiveStream(this, 3030)">Tracking Video Demo</div>
-                    <div class="ui button" onclick="hideVideo(this)">Hide Live Stream</div>
-                </div>
+                <div class="ui red top attached button" onclick="hideVideo(this)">Hide Live Stream</div>
 
-                <div class="ui rounded embed" data-url="http://150.182.130.194:3031/video_feed" id="video">
-                    <!-- Stream Read Error Section: Shown by default -->
-                    <div id="counting_feed_err">
-                        <center>
-                            <div class="ui huge steps">
-                                <div class="step">
-                                    <i class="large icons">
-                                        <i class="red video icon"></i>
-                                    </i>Video Feed is Currently Offline
+                <div class="ui inverted attached segment">
+                    <div class="ui rounded embed" data-url="http://150.182.130.194:3031/video_feed" id="video">
+                        <!-- Stream Read Error Section: Shown by default -->
+                        <div id="counting_feed_err">
+                            <center>
+                                <div class="ui huge steps">
+                                    <div class="step">
+                                        <i class="large icons">
+                                            <i class="red video icon"></i>
+                                        </i>Video Feed is Currently Offline
+                                    </div>
                                 </div>
-                            </div>
-                        </center>
+                            </center>
+                        </div>
                     </div>
                 </div>
+                <div class="ui two bottom attached buttons">
+                    <div class="ui button" onclick="changeLiveStream(this, 3031)" id="s">Anonymous Video Demo</div>
+                    <div class="ui button" onclick="changeLiveStream(this, 3030)">Tracking Video Demo</div>
+                </div>
+
 
                 <div class="ui horizontal divider"></div>
 
@@ -82,7 +82,7 @@
 
                         <h4 class="ui inverted header">Results:</h4>
 
-                        <div class="ui two column grid">
+                        <div class="ui two column stackable grid">
                             <div class="ui column">
                                 <img class="ui rounded image" src="./Resources/by_type.png">
                                 Results of tracking, categorized by Type. You can see signs of jay walking, but stop
@@ -100,7 +100,7 @@
 
 
             <script>
-                console.log(checkConnection());
+                checkConnection();
             </script>
 
         </div>
