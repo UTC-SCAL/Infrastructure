@@ -1,6 +1,7 @@
 var videoPort = 3031
 var lastButtonClicked = null
 var videoVisible = true
+var email_whitelist = ["ggy323@mocs.utc.edu", "mina-sartipi@utc.edu"]
 
 function init() {
     checkConnection();
@@ -21,25 +22,73 @@ function init() {
         });
 }
 
+function changeLiveStreamWithAuth(element, port) {
+    // Load the Google API in
+    gapi.load('client', () => {
+        gapi.client.init({
+            'apiKey': 'AIzaSyC9HvlrGYBF9wZrmjD-hJqpitf4Btag9N4',
+            'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
+            'clientId': '248719166848-v49k5c12g3011lhil342ebmqe89okjc5.apps.googleusercontent.com',
+            'scope': 'email',
+        }).then(function () {
+            GoogleAuth = gapi.auth2.getAuthInstance();
+            GoogleAuth.signIn();
+        }).then(function () {
+            // Keep looping to check if we're signed in...
+            var loop = setInterval(() => {
+                if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+                    clearInterval(loop);
+                }
+            }, 100);
+            var user = gapi.auth2.getAuthInstance().currentUser.get()
+            var email = user["w3"]["U3"]
+            // User is logged in and whitelisted
+            if (email_whitelist.includes(email.toLowerCase())) {
+                // Check for current button conditions:
+                if (element !== lastButtonClicked) {
+                    $(element).addClass("active");
+                    if (lastButtonClicked !== null) {
+                        $(lastButtonClicked).removeClass("active");
+                    }
+                    lastButtonClicked = element;
+                }
 
+                var newURL = document.getElementById("video").getAttribute("data-url")
+                newURL = newURL.replace(videoPort, port)
+                videoPort = port;
+                $('#video').embed('destroy')
+                document.getElementById("video").setAttribute("data-url", newURL)
+                $('#video').embed()
+            } else {
+                alert("This stream requires permissions you have not been given")
+                return;
+            }
+
+        });
+    });
+}
 
 function changeLiveStream(element, port) {
-    // Check for current button conditions:
-    if (element !== lastButtonClicked) {
-        $(element).addClass("active");
-        if (lastButtonClicked !== null) {
-            $(lastButtonClicked).removeClass("active");
+    // Do GoogleAuth if checking on port 3030
+    if (port === 3030) {
+        changeLiveStreamWithAuth(element, port);
+    } else {
+        // Check for current button conditions:
+        if (element !== lastButtonClicked) {
+            $(element).addClass("active");
+            if (lastButtonClicked !== null) {
+                $(lastButtonClicked).removeClass("active");
+            }
+            lastButtonClicked = element;
         }
-        lastButtonClicked = element;
+
+        var newURL = document.getElementById("video").getAttribute("data-url")
+        newURL = newURL.replace(videoPort, port)
+        videoPort = port;
+        $('#video').embed('destroy')
+        document.getElementById("video").setAttribute("data-url", newURL)
+        $('#video').embed()
     }
-
-    var newURL = document.getElementById("video").getAttribute("data-url")
-    newURL = newURL.replace(videoPort, port)
-    videoPort = port;
-    $('#video').embed('destroy')
-    document.getElementById("video").setAttribute("data-url", newURL)
-    $('#video').embed()
-
 }
 
 
