@@ -1,63 +1,37 @@
-var tooltips = []
 var videoPort = 3031
 var lastButtonClicked = null
+var videoVisible = true
 
 function init() {
-    tooltips.push(
-        tippy('#counter_icon', {
-            content: "Copy to Clipboard",
-            delay: 100,
-            arrow: true,
-            arrowType: 'round',
-            size: 'large',
-            duration: 500,
-            animation: 'scale',
-            hideOnClick: false
-        })
-    )
+    checkConnection();
+    // $("#menubar").hide()
+
+    $(document)
+        .ready(function () {
+            $('.masthead')
+                .visibility({
+                    once: false,
+                    onBottomPassed: function () {
+                        $('.fixed.menu').transition('fade in');
+                    },
+                    onBottomPassedReverse: function () {
+                        $('.fixed.menu').transition('fade out');
+                    }
+                });
+        });
 }
 
-function copyURL(link, element) {
-    document.getElementById("copyText").value = link;
-    document.getElementById("copyText").removeAttribute("style")
-    /* Get the text field */
-    var textArea = document.getElementById("copyText");
 
-    /* Select the text field */
-    textArea.select();
-
-    /* Copy the text inside the text field */
-    document.execCommand("copy");
-
-    /* Alert the copied text */
-    document.getElementById("copyText").setAttribute("style", "display:none");
-    element._tippy.setContent("Copied!");
-}
-
-function hideVideo(element) {
-    const video = document.getElementById("video")
-    var hidden = video.style.display === "none" ? true : false;
-    if (!hidden) {
-        $(video).hide("slow")
-    } else {
-        $(video).show("slow")
-    }
-    hidden = !hidden;
-    element.innerText = hidden ? "Show Live Stream" : "Hide Live Stream";
-    $(element).removeClass(!hidden ? "green" : "red")
-    $(element).addClass(hidden ? "green" : "red")
-}
 
 function changeLiveStream(element, port) {
     // Check for current button conditions:
-    if (element == lastButtonClicked) {
-        return;
+    if (element !== lastButtonClicked) {
+        $(element).addClass("active");
+        if (lastButtonClicked !== null) {
+            $(lastButtonClicked).removeClass("active");
+        }
+        lastButtonClicked = element;
     }
-    $(element).addClass("active");
-    if (lastButtonClicked !== null) {
-        $(lastButtonClicked).removeClass("active");
-    }
-    lastButtonClicked = element;
 
     var newURL = document.getElementById("video").getAttribute("data-url")
     newURL = newURL.replace(videoPort, port)
@@ -139,4 +113,34 @@ function checkConnection() {
             }
         }
     });
+}
+
+function toggleVideo(element) {
+    // Return if the button is disabled; do nothing
+    if ($(element).hasClass("disabled")) {
+        return;
+    }
+
+    if (videoVisible) {
+        $("#video").embed('destroy')
+        $("#video").hide("slow")
+    } else {
+        changeLiveStream(lastButtonClicked, videoPort)
+        $("#video").show("slow")
+    }
+    videoVisible = !videoVisible;
+    element.innerText = !videoVisible ? "Start Live Stream" : "Stop Live Stream";
+    $(element).removeClass(videoVisible ? "green" : "red")
+    $(element).addClass(!videoVisible ? "green" : "red")
+}
+
+function toggleSidebar() {
+    if (videoVisible) {
+        toggleVideo(document.getElementById("hide_button"))
+    }
+    $("#hide_button").removeClass("green")
+    $("#hide_button").removeClass("red")
+    $("#hide_button").addClass("disabled")
+    document.getElementById("hide_button").innerText = "Refresh Page to See Stream"
+    $('.ui.sidebar').sidebar('toggle');
 }

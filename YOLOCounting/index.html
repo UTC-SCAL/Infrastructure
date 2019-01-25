@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="../Resources/logo.png">
+    <title>YOLO Object Counting</title>
+    <script src="../Libraries/jquery-3.1.1.js"></script>
+    <script src="../Libraries/semantic/out/semantic.min.js"></script>
+    <script src="../Libraries/bootstrap.min.js"></script>
+    <script src="../Libraries/gapi.js"></script>
+    <script src="./page.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Libraries/semantic/out/semantic.min.css">
+    <link rel="stylesheet" href="../Libraries/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../scal.css">
+</head>
+<!--  -->
+
+<body onload="init()">
+    <div class="ui sidebar inverted vertical menu">
+        <a onclick="location.assign('..')" class="item">Home</a>
+        <a onclick="location.assign('../YOLOCounting')" class="header item">YOLO Object Counting</a>
+        <a onclick="location.assign('../PurpleAir')" class="item">Air Quality</a>
+    </div>
+    <div class="pusher">
+        <div class="ui large inverted top fixed hidden menu" id="menubar">
+            <div class="ui container">
+                <a class="header item" onclick="toggleSidebar()"><i class="sidebar icon"></i>Menu</a>
+            </div>
+        </div>
+
+        <div class="ui inverted vertical masthead center aligned segment">
+            <div class="ui container">
+                <div class="ui large secondary inverted menu">
+                    <a class="header item" onclick="toggleSidebar()"><i class="sidebar icon"></i>Menu</a>
+                </div>
+            </div>
+            <div class="ui text container">
+                <h1 id="header_text">Counting Objects Anonymously using YOLO v3</h1>
+            </div>
+        </div>
+
+        <div class="ui vertical stripe segment">
+            <div style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;" id="video_feed">
+                <!-- The information beneath the panel -->
+                <div class="ui justified container">
+                    <div class="info_panel">
+                        <h2 class="ui inverted header"><i class="info icon"></i>Background Information:</h2>
+                        This is done using <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO (You Only
+                            Look Once)</a>, a Convolutional Neural Network (CNN) that has been trained to detect a
+                        variety of different objects. This project in particular uses
+                        <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO v3</a>, which can detect 80
+                        different kinds of objects!<br> This project also uses
+                        <a href="https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/" target="_blank">PyImageSearch's
+                            Object Tracking</a>. Originally it utilized a Caffe model, but that was found to be quite
+                        inefficient and required much lower quality footage (thus reducing accuracy as well). Instead
+                        of suffering in quality and accuracy, the team decided to utilize YOLO's accurate detection
+                        with PyImageSearch's accurate tracking. The result is shown above (unless the processing server
+                        is offline).
+
+                        <h2 class="ui inverted header"><i class="chart line icon"></i>Data Analysis:</h2>
+
+                        <div class="ui two column stackable grid">
+                            <div class="ui column">
+                                <img class="ui rounded image" src="../Resources/by_type.png">
+                                Results of tracking, categorized by Type. You can see signs of jay walking, but stop
+                                patterns, and more.
+                            </div>
+                            <div class="ui column">
+                                <img class="ui rounded image" src="../Resources/by_dir.png">
+                                Results of tracking, categorized by Direction. You can see traffic flow and problematic
+                                driving habits (such as drivers drifting into bike or turn lane)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui horizontal divider"></div>
+
+                <div class="video_streams_section">
+                    <div class="ui red top attached button" onclick="toggleVideo(this)" id="hide_button">Stop Live
+                        Stream</div>
+
+                    <div class="ui inverted attached segment">
+                        <div class="ui rounded embed" data-url="http://150.182.130.194:3031/video_feed" id="video">
+                            <center>
+                                <div class="ui huge steps">
+                                    <div class="step">
+                                        <i class="large icons">
+                                            <i class="red video icon"></i>
+                                        </i>Video Feed is Currently Offline
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="ui responsive bottom attached buttons">
+                        <div class="ui button" onclick="changeLiveStream(this, 3031)" id="s">Anonymous Video Demo</div>
+                        <div class="ui button" onclick="changeLiveStream(this, 3030)">Tracking Video Demo</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Google API stuff -->
+    <script>
+        function start() {
+            // 2. Initialize the JavaScript client library.
+            gapi.client.init({
+                'apiKey': 'AIzaSyC9HvlrGYBF9wZrmjD-hJqpitf4Btag9N4',
+                // clientId and scope are optional if auth is not required.
+                'clientId': '248719166848-v49k5c12g3011lhil342ebmqe89okjc5.apps.googleusercontent.com',
+                'scope': 'profile',
+            }).then(function () {
+                // 3. Initialize and make the API request.
+                return gapi.client.request({
+                    'path': 'https://people.googleapis.com/v1/people/me?requestMask.includeField=person.names'
+                })
+            }).then(function (response) {
+                console.log(response.result);
+            }, function (reason) {
+                console.log('Error: ' + reason.result.error.message);
+            });
+        };
+        // 1. Load the JavaScript client library.
+        gapi.load('client', start);
+    </script>
+</body>
+
+</html>

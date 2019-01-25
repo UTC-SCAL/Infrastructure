@@ -11,102 +11,77 @@
     <script src="./Libraries/semantic/out/semantic.min.js"></script>
     <script src="./Libraries/bootstrap.min.js"></script>
     <script src="./Libraries/tippy.all.min.js"></script>
-    <script src="scal.js"></script>
+    <script src="./Libraries/plotly-latest.min.js"></script>
+    <script src="page.js"></script>
     <link rel="stylesheet" type="text/css" href="./Libraries/semantic/out/semantic.min.css">
     <link rel="stylesheet" href="./Libraries/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="scal.css">
 </head>
 
 <body onload="init()">
+    <div class="ui sidebar inverted vertical menu">
+        <a onclick="location.assign('.')" class="header item">Home</a>
+        <a onclick="location.assign('./YOLOCounting')" class="item">YOLO Object Counting</a>
+        <a onclick="location.assign('./PurpleAir')" class="item">Air Quality</a>
+
+    </div>
     <div class="pusher">
+        <div class="ui large inverted top fixed hidden menu" id="menubar">
+            <div class="ui container">
+                <a class="header item" onclick="toggleSidebar()"><i class="sidebar icon"></i>Menu</a>
+            </div>
+        </div>
+
         <div class="ui inverted vertical masthead center aligned segment">
+            <div class="ui container">
+                <div class="ui large secondary inverted menu">
+                    <a class="header item" onclick="toggleSidebar()"><i class="sidebar icon"></i>Menu</a>
+                </div>
+            </div>
             <div class="ui text container">
-                <!-- <img src="./Resources/logo.png" class="ui centered rounded image" style="width: 24em; height: auto;"> -->
-                <h1 id="header_text">Chattanooga's MLK Boulevard Testbed</h1>
-                <h2 id="header_subtext">Demos of the software currently implemented</h2>
+                <h1 id="header_text">UTC's MLK Blvd Testbed</h1>
+                <h2 id="header_subtext">Demos of Projects Implemented using the Testbed</h2>
             </div>
         </div>
 
         <div class="ui vertical stripe segment">
             <div style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;" id="video_feed">
-                <!-- Header -->
-                <h2 id="counter" class="ui inverted header">
-                    <i class="ui linkify icon" id="counter_icon" onclick="copyURL('http://utc-scal-testbed.com#counter', this)"></i>
-                    Vehicle and Pedestrian Counting using YOLO
-                </h2>
-
-                <div class="ui red top attached button" onclick="hideVideo(this)">Hide Live Stream</div>
-
-                <div class="ui inverted attached segment">
-                    <div class="ui rounded embed" data-url="http://150.182.130.194:3031/video_feed" id="video">
-                        <!-- Stream Read Error Section: Shown by default -->
-                        <div id="counting_feed_err">
-                            <center>
-                                <div class="ui huge steps">
-                                    <div class="step">
-                                        <i class="large icons">
-                                            <i class="red video icon"></i>
-                                        </i>Video Feed is Currently Offline
-                                    </div>
-                                </div>
-                            </center>
-                        </div>
-                    </div>
-                </div>
-                <div class="ui two bottom attached buttons">
-                    <div class="ui button" onclick="changeLiveStream(this, 3031)" id="s">Anonymous Video Demo</div>
-                    <div class="ui button" onclick="changeLiveStream(this, 3030)">Tracking Video Demo</div>
-                </div>
-
-
-                <div class="ui horizontal divider"></div>
-
                 <!-- The information beneath the panel -->
-                <div class="ui justified container">
+                <div class="ui container">
                     <div class="info_panel">
-                        <h2 class="ui inverted header"><i class="info icon"></i>More Information:</h2>
+                        <div class="ui text container">
+                            <h2 class="ui inverted header">
+                                <i class="ui info icon"></i>
+                                About:
+                            </h2>
 
-                        This is done using <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO (You Only
-                            Look Once)</a>, a Convolutional Neural Network (CNN) that has been trained to detect a
-                        variety
-                        of different objects. This project in particular uses
-                        <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO v3</a>, which can detect 80
-                        different kinds of objects!<br> This project also uses
-                        <a href="https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/" target="_blank">PyImageSearch's
-                            Object Tracking</a>. Originally it utilized a Caffe model, but that was found to be quite
-                        inefficient and required much lower quality footage (thus reducing accuracy as well). Instead
-                        of
-                        suffering in quality and accuracy, the team decided to utilize YOLO's accurate detection with
-                        PyImageSearch's accurate tracking. The result is shown above (unless the processing server is
-                        offline).
-
-                        <h4 class="ui inverted header">Results:</h4>
-
-                        <div class="ui two column stackable grid">
-                            <div class="ui column">
-                                <img class="ui rounded image" src="./Resources/by_type.png">
-                                Results of tracking, categorized by Type. You can see signs of jay walking, but stop
-                                patterns, and more.
-                            </div>
-                            <div class="ui column">
-                                <img class="ui rounded image" src="./Resources/by_dir.png">
-                                Results of tracking, categorized by Direction. You can see traffic flow and problematic
-                                driving habits (such as drivers drifting into bike or turn lane)
-                            </div>
+                            This page serves as a platform to show the progress made on UTC's testbed along MLK
+                            Boulevard.
+                            The initial testbed was implemented by the Center of Urban Informatics and Progress (<a href="https://www.utccuip.com/" target="_blank">UTC's CUIP</a>),
+                            founded by Dr. Mina Sartipi. This center aims to serve as a nexus of research and
+                            innovation at the University of Tennessee at Chattanooga.
+                            <br>
+                            <br>
+                            The testbed spans over a mile of Downtown Chattanooga's Martin Luther King Boulvard,
+                            starting at the intersection of MLK and Market Street and ending at the intersection of MLK
+                            and Central Avenue.
+                            <br>
+                            <br>
+                            <img class="ui rounded image" src="./Resources/testbed_map.png">
+                            <br>
+                            <br>
+                            This site's features can be accessed via the menu. Currently implemented are:
+                            <ul>
+                                <li>Vehicle and Object Tracking with YOLO v3</li>
+                                <li>Air Quality Analysis using PurpleAir</li>
+                            </ul>
+                            More features to be implemented in the future!
                         </div>
                     </div>
                 </div>
             </div>
-
-
-            <script>
-                checkConnection();
-            </script>
-
         </div>
     </div>
-    <input type="text" value="http://utc-scal-testbed.com" id="copyText" style="display:none;">
-
 </body>
 
 </html>

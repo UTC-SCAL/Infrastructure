@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="../Resources/logo.png">
+    <title>Air Quality using PurpleAir</title>
+    <script src="../Libraries/jquery-3.1.1.js"></script>
+    <script src="../Libraries/semantic/out/semantic.min.js"></script>
+    <script src="../Libraries/bootstrap.min.js"></script>
+    <script src="../Libraries/plotly-latest.min.js"></script>
+    <script src="./page.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Libraries/semantic/out/semantic.min.css">
+    <link rel="stylesheet" href="../Libraries/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../scal.css">
+</head>
+
+<body onload="init()">
+    <div class="ui sidebar inverted vertical menu">
+        <a onclick="location.assign('..')" class="item">Home</a>
+        <a onclick="location.assign('../YOLOCounting')" class="item">YOLO Object Counting</a>
+        <a onclick="location.assign('../PurpleAir')" class="header item">Air Quality</a>
+
+    </div>
+    <div class="pusher">
+        <div class="ui large inverted top fixed hidden menu" id="menubar">
+            <div class="ui container">
+                <a class="header item" onclick="toggleSidebar()"><i class="sidebar icon"></i>Menu</a>
+            </div>
+        </div>
+
+        <div class="ui inverted vertical masthead center aligned segment">
+            <div class="ui container">
+                <div class="ui large secondary inverted menu">
+                    <a class="header item" onclick="toggleSidebar()"><i class="sidebar icon"></i>Menu</a>
+                </div>
+            </div>
+            <div class="ui text container">
+                <h1 id="header_text">Air Quality Analysis using Purple Air</h1>
+            </div>
+        </div>
+        <div class="ui vertical stripe segment">
+            <div style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;">
+                <div class="ui text container">
+                    The testbed has a variety of Air Quality sensors created by Purple Air. These sensors report back a
+                    variety of information including temperature, humidity, particle matter content and more. Below is a 
+                    realtime demonstration of the PurpleAir readings at the intersection of MLK Blvd and Peeples. New
+                    Purple Air readings come in every 1-2 minutes. This graph will update automatically over time and
+                    resets when you reload or exit and re-enter the page.
+                </div>
+                <div id="pa_plot">
+                    <!-- Populated by Plotly.js -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
