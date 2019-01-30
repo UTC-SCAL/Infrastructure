@@ -132,3 +132,7 @@ body.pushable>.pusher {
 .video_streams_section {
 	margin-bottom: 1em;
 }
+
+.ui.text.container {
+	width: 100%;
+}

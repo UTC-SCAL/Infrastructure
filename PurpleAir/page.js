@@ -31,19 +31,31 @@ function init() {
         y: vals,
         mode: 'lines+markers',
         name: 'PM 2.5 Time Series',
-        line: {shape: 'hvh'}
+        line: {
+            shape: 'hvh'
+        }
     }]
 
     var layout = {
-        title: "PM 2.5 at the Intersection of MLK & Peeples",
+        title: {
+            text: "PM 2.5 at the Intersection of MLK & Peeples",
+            font: {
+                color: "#EEEEEE"
+            }
+        },
+        plot_bgcolor: "#202020",
+        paper_bgcolor: "#202020",
+        text_color: "#EEEEEE",
         xaxis: {
             title: 'Date & Time of Reading',
             showgrid: false,
-            zeroline: false
+            zeroline: false,
+            color: "#EEEEEE"
         },
         yaxis: {
             title: 'PM 2.5 Reading',
-            showline: false
+            showline: false,
+            color: "#EEEEEE"
         }
     }
 
@@ -62,7 +74,9 @@ function init() {
                 y: vals,
                 mode: 'lines+markers',
                 name: 'PM 2.5 Time Series',
-                line: {shape: 'hvh'}
+                line: {
+                    shape: 'hvh'
+                }
             }]
 
             Plotly.react(document.getElementById("pa_plot"), data, layout)

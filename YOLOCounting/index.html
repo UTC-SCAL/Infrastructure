@@ -44,66 +44,63 @@
         </div>
 
         <div class="ui vertical stripe segment">
-            <div style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;" id="video_feed">
-                <!-- The information beneath the panel -->
-                <div class="ui justified container">
-                    <div class="info_panel">
-                        <h2 class="ui inverted header"><i class="info icon"></i>Background Information:</h2>
-                        This is done using <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO (You Only
-                            Look Once)</a>, a Convolutional Neural Network (CNN) that has been trained to detect a
-                        variety of different objects. This project in particular uses
-                        <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO v3</a>, which can detect 80
-                        different kinds of objects!<br> This project also uses
-                        <a href="https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/" target="_blank">PyImageSearch's
-                            Object Tracking</a>. Originally it utilized a Caffe model, but that was found to be quite
-                        inefficient and required much lower quality footage (thus reducing accuracy as well). Instead
-                        of suffering in quality and accuracy, the team decided to utilize YOLO's accurate detection
-                        with PyImageSearch's accurate tracking. The result is shown above (unless the processing server
-                        is offline).
+            <!-- The information beneath the panel -->
+            <div class="ui justified container">
+                <div class="info_panel">
+                    <h2 class="ui inverted header"><i class="info icon"></i>Background Information:</h2>
+                    This is done using <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO (You Only
+                        Look Once)</a>, a Convolutional Neural Network (CNN) that has been trained to detect a
+                    variety of different objects. This project in particular uses
+                    <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLO v3</a>, which can detect 80
+                    different kinds of objects!<br> This project also uses
+                    <a href="https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/" target="_blank">PyImageSearch's
+                        Object Tracking</a>. Originally it utilized a Caffe model, but that was found to be quite
+                    inefficient and required much lower quality footage (thus reducing accuracy as well). Instead
+                    of suffering in quality and accuracy, the team decided to utilize YOLO's accurate detection
+                    with PyImageSearch's accurate tracking. The result is shown above (unless the processing server
+                    is offline).
 
-                        <h2 class="ui inverted header"><i class="chart line icon"></i>Data Analysis:</h2>
+                    <h2 class="ui inverted header"><i class="chart line icon"></i>Data Analysis:</h2>
 
-                        <div class="ui two column stackable grid">
-                            <div class="ui column">
-                                <img class="ui rounded image" src="../Resources/by_type.png">
-                                Results of tracking, categorized by Type. You can see signs of jay walking, but stop
-                                patterns, and more.
-                            </div>
-                            <div class="ui column">
-                                <img class="ui rounded image" src="../Resources/by_dir.png">
-                                Results of tracking, categorized by Direction. You can see traffic flow and problematic
-                                driving habits (such as drivers drifting into bike or turn lane)
-                            </div>
+                    <div class="ui two column stackable grid">
+                        <div class="ui column">
+                            <img class="ui rounded image" src="../Resources/by_type.png">
+                            Results of tracking, categorized by Type. You can see signs of jay walking, but stop
+                            patterns, and more.
+                        </div>
+                        <div class="ui column">
+                            <img class="ui rounded image" src="../Resources/by_dir.png">
+                            Results of tracking, categorized by Direction. You can see traffic flow and problematic
+                            driving habits (such as drivers drifting into bike or turn lane)
                         </div>
                     </div>
                 </div>
-
-                <div class="ui horizontal divider"></div>
-
-                <div class="video_streams_section">
-                    <div class="ui red top attached button" onclick="toggleVideo(this)" id="hide_button">Stop Live
-                        Stream</div>
-
-                    <div class="ui inverted attached segment">
-                        <div class="ui rounded embed" data-url="http://150.182.130.194:3031/video_feed" id="video">
-                            <center>
-                                <div class="ui huge steps">
-                                    <div class="step">
-                                        <i class="large icons">
-                                            <i class="red video icon"></i>
-                                        </i>Video Feed is Currently Offline
-                                    </div>
-                                </div>
-                            </center>
-                        </div>
-                    </div>
-                    <div class="ui responsive bottom attached buttons">
-                        <div class="ui button" onclick="changeLiveStream(this, 3031)" id="s">Anonymous Video Demo</div>
-                        <div class="ui button" onclick="changeLiveStreamWithAuth(this, 3030)">Tracking Video Demo</div>
-                    </div>
-                </div>
-
             </div>
+
+            <div class="ui horizontal divider"></div>
+            <div class="video_streams_section" style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;">
+                <div class="ui red top attached button" onclick="toggleVideo(this)" id="hide_button">Stop Live
+                    Stream</div>
+
+                <div class="ui inverted attached segment">
+                    <div class="ui rounded embed" data-url="http://150.182.130.194:3031/video_feed" id="video">
+                        <center>
+                            <div class="ui huge steps">
+                                <div class="step">
+                                    <i class="large icons">
+                                        <i class="red video icon"></i>
+                                    </i>Video Feed is Currently Offline
+                                </div>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+                <div class="ui responsive bottom attached buttons">
+                    <div class="ui button" onclick="changeLiveStream(this, 3031)" id="s">Anonymous Video Demo</div>
+                    <div class="ui button" onclick="changeLiveStreamWithAuth(this, 3030)">Tracking Video Demo</div>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>
