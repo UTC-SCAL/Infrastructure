@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="../Resources/logo.png">
+    <title>Air Quality using PurpleAir</title>
+    <script src="../Libraries/jquery-3.1.1.js"></script>
+    <script src="../Libraries/semantic/out/semantic.min.js"></script>
+    <script src="../Libraries/bootstrap.min.js"></script>
+    <script src="../Libraries/plotly-latest.min.js"></script>
+    <script src="./page.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Libraries/semantic/out/semantic.min.css">
+    <link rel="stylesheet" href="../Libraries/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../scal.css">
+</head>
+
+<body onload="init()">
+    <div class="ui sidebar inverted vertical menu">
+        <a onclick="location.assign('..')" class="item">Home</a>
+        <a onclick="location.assign('../YOLOCounting')" class="item">YOLO Object Counting</a>
+        <a onclick="location.assign('../PurpleAir')" class="item">Air Quality</a>
+        <a onclick="location.assign('../Features')" class="header item">Testbed Features</a>
+    </div>
+    <div class="pusher">
+        <div class="ui large inverted top fixed hidden menu" id="menubar">
+            <div class="ui container">
+                <a class="header item" onclick="toggleSidebar()"><i class="sidebar icon"></i>Menu</a>
+            </div>
+        </div>
+
+        <div class="ui inverted vertical masthead center aligned segment">
+            <div class="ui container">
+                <div class="ui large secondary inverted menu">
+                    <a class="header item" onclick="toggleSidebar()"><i class="sidebar icon"></i>Menu</a>
+                </div>
+            </div>
+            <div class="ui text container">
+                <h1 id="header_text">Features of the Testbed</h1>
+            </div>
+        </div>
+        <div class="ui vertical stripe segment">
+            <div style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;">
+                <div class="ui text container">
+                    <h2 class="ui inverted header">General</h2>
+                    The testbed includes 16 poles and each pole includes a wide array of sensors(including air quality,
+                    cameras, LIDAR, RADAR, and audio) and networking capabilities(SDR, DSRC, 802.11AC, and 802.11AD)
+                    shown in Table 1 and 2. Poles and industrial enclosures at each location allow for easy deployment
+                    of additional application specific hardware.
+                    <br><br>
+                    All data generated within the testbed is ingested into a scalable, event-driven, publish/subscribe
+                    data integration platform. All data is accessible in real-time via APIs that are provided to
+                    partners.
+                    Prebuilt connectors can be utilized for continuous integration by popular data storage
+                    platforms such as HDFS, AWS S3, and Cassandra. These connectors run on our scalable connect cluster
+                    that can be deployed with no development, only configuration. Our localized data center allows
+                    low-latency, high-bandwidth connections that are necessary to meet the time critical application
+                    requirements. It also hosts operational data stores for analysis, reporting, and monitoring before
+                    the data lands in our data lake.
+                    <h2 class="ui inverted header">Networking</h2>
+                    The physical infrastructure is supported by EPB’s gigabit fiber network. This will guarantee high
+                    throughput and low latency backhaul. In addition, we are working on several wireless technologies
+                    on the testbed, some are implemented and the rest are being investigated:
+                    <ol>
+                        <li>DSRC: Access points are deployed throughout the testbed resulting in a single network for
+                            all devices to operate. Dedicated Short Range Communications (DSRC) is deployed throughout
+                            the testbed to allow high speed communications between vehicles and the roadside units
+                            and/or between vehicles with a range of up to 1 km.
+                        </li>
+                        <li>4G, 5G, mmWave: We are exploiting other technologies to complement the DSRC technology to
+                            overcome the fact that DSRC’s throughput and delay performance degrades in large-scale
+                            connected autonomous vehicles. More specifically, we are investigating wireless
+                            technologies such as 4G Long-Term Evolution (LTE) and millimeter wave communication by
+                            using our testbed to evaluate and assess their performance. These technologies can be added
+                            to the testbed for a comprehensive assessment.
+                        </li>
+                        <li>UWB: Location-based applications highly depend on availability of GPS signal. Mapping
+                            applications for vehicle routing usually suffer in highly dense urban areas that GPS signal
+                            cannot penetrate due to shadowing. Ultra Wide Band (UWB) technology has been proposed for a
+                            precise positioning and navigation system. We are working on enhancing our testbed
+                            capability by adding UWB transmitters.
+                        </li>
+                    </ol>
+                    To ensure the security of the wireless communications, we have been working on implementing
+                    blockchain. Blockchain provides a secure and distributed database for scalable applications. The
+                    receiving unit can validate the authenticity of the received messages using blockchain database.
+                    Our testbed has processing units that will enable us to process and update the blocks for our
+                    distributed database. These edge units on our testbed makes the implementation of blockchain
+                    possible. We are in the process of investigating the practicality of using blockchain adaptation
+                    together with DSRC or other wireless communication (5G technologies) to ensure secure data
+                    transmission for future vehicle to vehicle or infrastructure communication. You can see a list
+                    of these devices with a simple description below:
+
+                    <h4 class="ui inverted header">Radio Device List</h4>
+
+                    <table class="ui inverted celled unstackable table">
+                        <thead>
+                            <tr>
+                                <th>Device</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <th>LimeSDR</th>
+                            <th>Handles I/O of numerous radio signal varieties</th>
+                        </tr>
+                        <tr>
+                            <th>Locomate DSRC</th>
+                            <th>Dedicated short-range wireless communications</th>
+                        </tr>
+                        <tr>
+                            <th>HackRF One</th>
+                            <th>Programmable peripheral for software defined radio like LimeSDR</th>
+                        </tr>
+                        <tr>
+                            <th>Aruba AP 270</th>
+                            <th>802.11AC Wireless Router with 2.4 and 5.0GHz frequencies</th>
+                        </tr>
+                        <tr>
+                            <th>TPLink AD7200</th>
+                            <th>802.11AD Wireless Router with 2.4, 5.0 and 60GHz frequencies</th>
+                        </tr>
+                    </table>
+
+                    <h2 class="ui inverted header">Sensors and Processing</h2>
+
+                    With the testbed's variety of sensors, it is possible to implement a variety of applications that
+                    easily utilize the data inputs that are obtainable. Many projects have been proposed and a few have
+                    been deployed using these sensors (such as the PurpleAir and YOLO Counter included on this site).
+                    These sensors and a basic description are listed below:
+
+                    <h4 class="ui inverted header">Sensor List</h4>
+
+                    <table class="ui inverted celled unstackable table">
+                        <thead>
+                            <tr>
+                                <th>Device</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <th>Purple Air PA-II-SD</th>
+                            <th>Air sensor providing current air quality conditions</th>
+                        </tr>
+                        <tr>
+                            <th>Axis P1448-LE</th>
+                            <th>4K 30 FPS camera with variable FOV</th>
+                        </tr>
+                        <tr>
+                            <th>Axis M2025-LE</th>
+                            <th>1080P 30FPS camera with wide FOV</th>
+                        </tr>
+                        <tr>
+                            <th>Sound Card + Preamp Mic</th>
+                            <th>Mic connected to Raspberry Pi for audio analysis and processing</th>
+                        </tr>
+                        <tr>
+                            <th>RP LiDAR</th>
+                            <th>LiDAR sensor for bathymetric depth calculations and more</th>
+                        </tr>
+                        <tr>
+                            <th>Banner Q240R RADAR</th>
+                            <th>Narrow-beam Fixed RADAR sensor</th>
+                        </tr>
+                    </table>
+
+                    <h2 class="ui inverted header">Edge Computing</h2>
+
+                    To distribute processing and further decrease the inherent latency caused by distance, edge
+                    computing can be used. Edge computing will be used for audio processing using <a href="https://wp.nyu.edu/sonyc/"
+                        target="_blank">SoNYC</a>, done via Raspberry Pi. An Nvidia Jetson TX2 will ideally be
+                    implemented for future projects requiring GPU utilization, such as object recognition or image
+                    processing. The testbed is equipped with these listed Edge Computing devices:
+
+                    <h4 class="ui inverted header">Computing Devices</h4>
+
+                    <table class="ui inverted celled unstackable table">
+                        <thead>
+                            <tr>
+                                <th>Device</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <th>Nvidia Jetson TX2</th>
+                            <th>Edge Computing node for GPU-intensive computation or processing</th>
+                        </tr>
+                        <tr>
+                            <th>Raspberry Pi (Multiple)</th>
+                            <th>Edge Computing node for simple processing or data transmission</th>
+                        </tr>
+                    </table>
+                    <div>
+                        <!-- The bottom of the page didn't have enough space.... -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
