@@ -49,22 +49,22 @@ function checkConnection() {
         return ip
     }
     $.ajax({
-        url: "http://150.182.130.194:" + videoPort + "/video_feed",
+        url: "https://150.182.130.194:" + videoPort + "/video_feed",
         type: "HEAD",
         timeout: 1000,
         statusCode: {
             // Can connect
             200: function (response) {
-                setVideoIP("http://150.182.130.194")
+                setVideoIP("https://150.182.130.194")
             },
             // Can't connect
             400: function (response) {
                 $.ajax({
-                    url: "http://10.199.1.152:3030/video_feed",
+                    url: "https://10.199.1.152:3030/video_feed",
                     type: "HEAD",
                     statusCode: {
                         200: function (response) {
-                            setVideoIP("http://10.199.1.152")
+                            setVideoIP("https://10.199.1.152")
                         },
                         400: function (response) {
                             setVideoIP(null)
@@ -72,7 +72,7 @@ function checkConnection() {
                         0: function (response) {
                             // Can connect
                             if (response.statusText === "error") {
-                                setVideoIP("http://10.199.1.152")
+                                setVideoIP("https://10.199.1.152")
                             } else {
                                 setVideoIP(null)
                             }
@@ -85,22 +85,22 @@ function checkConnection() {
             0: function (response) {
                 // Can connect
                 if (response.statusText === "error") {
-                    setVideoIP("http://150.182.130.194")
+                    setVideoIP("https://150.182.130.194")
                 } else {
                     $.ajax({
-                        url: "http://10.199.1.152:" + videoPort + "/video_feed",
+                        url: "https://10.199.1.152:" + videoPort + "/video_feed",
                         type: "HEAD",
                         timeout: 1000,
                         statusCode: {
                             200: function (response) {
-                                setVideoIP("http://10.199.1.152")
+                                setVideoIP("https://10.199.1.152")
                             },
                             400: function (response) {
                                 setVideoIP(null)
                             },
                             0: function (response) {
                                 if (response.statusText === "error") {
-                                    setVideoIP("http://10.199.1.152")
+                                    setVideoIP("https://10.199.1.152")
                                 } else {
                                     setVideoIP(null)
                                 }
