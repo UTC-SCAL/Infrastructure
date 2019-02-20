@@ -1,7 +1,6 @@
 var videoPort = 3031
 var lastButtonClicked = null
 var videoVisible = true
-var email_whitelist = ["ggy323@mocs.utc.edu", "mina-sartipi@utc.edu"]
 
 function init() {
     checkConnection();
@@ -20,6 +19,7 @@ function init() {
                     }
                 });
         });
+    $("#s").click();
 }
 
 function changeLiveStream(element, port) {
@@ -45,7 +45,6 @@ function checkConnection() {
     function setVideoIP(ip) {
         document.getElementById("video").setAttribute("data-url", (ip + ":" + videoPort + "/video_feed"))
         $('#video').embed()
-        $("#s").click()
         return ip
     }
     $.ajax({
@@ -60,7 +59,7 @@ function checkConnection() {
             // Can't connect
             400: function (response) {
                 $.ajax({
-                    url: "https://10.199.1.152:3030/video_feed",
+                    url: "https://10.199.1.152:" + videoPort + "/video_feed",
                     type: "HEAD",
                     statusCode: {
                         200: function (response) {
