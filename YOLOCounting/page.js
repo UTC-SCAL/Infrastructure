@@ -1,6 +1,6 @@
-var videoPort = 3031
-var lastButtonClicked = null
-var videoVisible = true
+var videoPort = 3031;
+var lastButtonClicked = null;
+var videoVisible = true;
 
 function init() {
     checkConnection();
@@ -32,20 +32,25 @@ function changeLiveStream(element, port) {
         lastButtonClicked = element;
     }
 
-    var newURL = document.getElementById("video").getAttribute("data-url")
-    newURL = newURL.replace(videoPort, port)
+    var newURL = document.getElementById("video").getAttribute("data-url");
+    newURL = newURL.replace(videoPort, port);
     videoPort = port;
-    $('#video').embed('destroy')
-    document.getElementById("video").setAttribute("data-url", newURL)
-    $('#video').embed()
+    $('#video').embed('destroy');
+    document.getElementById("video").setAttribute("data-url", newURL);
+    $('#video').embed();
 }
 
+function openInTab() {
+    var url = document.getElementById("video").getAttribute("data-url");
+    var win = window.open(url, '_blank');
+    win.focus();
+}
 
 function checkConnection() {
     function setVideoIP(ip) {
-        document.getElementById("video").setAttribute("data-url", (ip + ":" + videoPort + "/video_feed"))
-        $('#video').embed()
-        return ip
+        document.getElementById("video").setAttribute("data-url", (ip + ":" + videoPort + "/video_feed"));
+        $('#video').embed();
+        return ip;
     }
     $.ajax({
         url: "http://150.182.130.194:" + videoPort + "/video_feed",
@@ -54,7 +59,7 @@ function checkConnection() {
         statusCode: {
             // Can connect
             200: function (response) {
-                setVideoIP("http://150.182.130.194")
+                setVideoIP("http://150.182.130.194");
             },
             // Can't connect
             400: function (response) {
@@ -63,17 +68,17 @@ function checkConnection() {
                     type: "HEAD",
                     statusCode: {
                         200: function (response) {
-                            setVideoIP("http://10.199.1.152")
+                            setVideoIP("http://10.199.1.152");
                         },
                         400: function (response) {
-                            setVideoIP(null)
+                            setVideoIP(null);
                         },
                         0: function (response) {
                             // Can connect
                             if (response.statusText === "error") {
-                                setVideoIP("http://10.199.1.152")
+                                setVideoIP("http://10.199.1.152");
                             } else {
-                                setVideoIP(null)
+                                setVideoIP(null);
                             }
 
                         }
@@ -84,7 +89,7 @@ function checkConnection() {
             0: function (response) {
                 // Can connect
                 if (response.statusText === "error") {
-                    setVideoIP("http://150.182.130.194")
+                    setVideoIP("http://150.182.130.194");
                 } else {
                     $.ajax({
                         url: "http://10.199.1.152:" + videoPort + "/video_feed",
@@ -92,16 +97,16 @@ function checkConnection() {
                         timeout: 1000,
                         statusCode: {
                             200: function (response) {
-                                setVideoIP("http://10.199.1.152")
+                                setVideoIP("http://10.199.1.152");
                             },
                             400: function (response) {
-                                setVideoIP(null)
+                                setVideoIP(null);
                             },
                             0: function (response) {
                                 if (response.statusText === "error") {
-                                    setVideoIP("http://10.199.1.152")
+                                    setVideoIP("http://10.199.1.152");
                                 } else {
-                                    setVideoIP(null)
+                                    setVideoIP(null);
                                 }
                             }
                         }
@@ -119,25 +124,26 @@ function toggleVideo(element) {
     }
 
     if (videoVisible) {
-        $("#video").embed('destroy')
-        $("#video").hide("slow")
+        $("#video").embed('destroy');
+        $("#video").hide("slow");
     } else {
-        changeLiveStream(lastButtonClicked, videoPort)
-        $("#video").show("slow")
+        changeLiveStream(lastButtonClicked, videoPort);
+        $("#video").show("slow");
     }
     videoVisible = !videoVisible;
-    element.innerText = !videoVisible ? "Start Live Stream" : "Stop Live Stream";
-    $(element).removeClass(videoVisible ? "green" : "red")
-    $(element).addClass(!videoVisible ? "green" : "red")
+    $(element).removeClass(videoVisible ? "green" : "red");
+    $(element).addClass(!videoVisible ? "green" : "red");
+    $("#hide_button_icon").removeClass(videoVisible ? "play" : "stop");
+    $("#hide_button_icon").addClass(videoVisible ? "stop" : "play");
 }
 
 function toggleSidebar() {
     if (videoVisible) {
-        toggleVideo(document.getElementById("hide_button"))
+        toggleVideo(document.getElementById("hide_button"));
     }
-    $("#hide_button").removeClass("green")
-    $("#hide_button").removeClass("red")
-    $("#hide_button").addClass("disabled")
-    document.getElementById("hide_button").innerText = "Refresh Page to See Stream"
+    $("#hide_button").removeClass("green");
+    $("#hide_button").removeClass("red");
+    $("#hide_button").addClass("disabled");
+    document.getElementById("hide_button").innerText = "Refresh Page to See Stream";
     $('.ui.sidebar').sidebar('toggle');
 }
