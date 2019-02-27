@@ -28,6 +28,10 @@ function init() {
     getIP();
 }
 
+function toProper(text) {
+    return text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
+}
+
 function getIP() {
     function setIP(url) {
 
@@ -55,7 +59,7 @@ function getIP() {
 
                 var layout = {
                     title: {
-                        text: "PM 2.5 at the Intersection of MLK & Peeples",
+                        text: "PM 2.5 at the Intersection of MLK & " + toProper(currentSelection),
                         font: {
                             color: "#EEEEEE"
                         }
@@ -100,6 +104,30 @@ function getIP() {
                                     shape: 'hvh'
                                 }
                             }];
+
+                            // We have to re-make layout because the title will change
+                            var layout = {
+                                title: {
+                                    text: "PM 2.5 at the Intersection of MLK & " + toProper(currentSelection),
+                                    font: {
+                                        color: "#EEEEEE"
+                                    }
+                                },
+                                plot_bgcolor: "#202020",
+                                paper_bgcolor: "#202020",
+                                text_color: "#EEEEEE",
+                                xaxis: {
+                                    title: 'Date & Time of Reading',
+                                    showgrid: false,
+                                    zeroline: false,
+                                    color: "#EEEEEE"
+                                },
+                                yaxis: {
+                                    title: 'PM 2.5 Reading',
+                                    showline: false,
+                                    color: "#EEEEEE"
+                                }
+                            };
 
                             Plotly.react(document.getElementById("pa_plot"), plotly_data, layout);
                         }

@@ -45,9 +45,9 @@
             <div class="ui text container">
                 The testbed has a variety of Air Quality sensors created by Purple Air. These sensors report back a
                 variety of information including temperature, humidity, particle matter content and more. Below is a
-                realtime demonstration of the PurpleAir readings at the intersection of MLK Blvd and Peeples. New
-                Purple Air readings come in every 1-2 minutes. This graph will update automatically over time and
-                resets when you reload or exit and re-enter the page.
+                realtime demonstration of the PurpleAir readings throughout the testbed. These readings come from a
+                server which grabs the data from our Kafka servers, and publishes it in a way that can be accessed
+                anywhere.
             </div>
         </div>
 
@@ -71,10 +71,6 @@
             <!-- Populated by Plotly.js -->
         </div>
     </div>
-
-    <!-- Used for IP storage from checkConnection() -->
-
-    <div id="ip_storage" style="display: none"></div>
 
 </body>
 
