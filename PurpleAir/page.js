@@ -1,7 +1,13 @@
-var vals = {}
-var times = []
-var time_to_datetime = {}
-var datetimes = []
+var vals = {};
+var currentSelection = "";
+
+function change(element, graph) {
+    if (currentSelection !== "") {
+        $("#" + currentSelection).removeClass("active");
+    }
+    $(element).addClass("active");
+    currentSelection = graph;
+}
 
 function init() {
 
@@ -18,57 +24,89 @@ function init() {
                     }
                 });
         });
-
+    $("#central").click();
     getIP();
 }
 
 function getIP() {
     function setIP(url) {
 
-
-        $.getJSON(url, function (data) {
-            console.log(data);
-        });
-
-        var data = [{
-            x: datetimes,
-            y: vals,
-            mode: 'lines+markers',
-            name: 'PM 2.5 Time Series',
-            line: {
-                shape: 'hvh'
-            }
-        }];
-
-        var layout = {
-            title: {
-                text: "PM 2.5 at the Intersection of MLK & Peeples",
-                font: {
-                    color: "#EEEEEE"
+        $.ajax({
+            url: url,
+            dataType: 'jsonp',
+            success: function (data) {
+                vals = data;
+                var xs = [];
+                var ys = [];
+                for (var i in vals[currentSelection]) {
+                    xs.push(vals[currentSelection][i][1]);
+                    ys.push(vals[currentSelection][i][0]);
                 }
-            },
-            plot_bgcolor: "#202020",
-            paper_bgcolor: "#202020",
-            text_color: "#EEEEEE",
-            xaxis: {
-                title: 'Date & Time of Reading',
-                showgrid: false,
-                zeroline: false,
-                color: "#EEEEEE"
-            },
-            yaxis: {
-                title: 'PM 2.5 Reading',
-                showline: false,
-                color: "#EEEEEE"
+
+                var plotly_data = [{
+                    x: xs,
+                    y: ys,
+                    mode: 'lines+markers',
+                    name: 'PM 2.5 Time Series',
+                    line: {
+                        shape: 'hvh'
+                    }
+                }];
+
+                var layout = {
+                    title: {
+                        text: "PM 2.5 at the Intersection of MLK & Peeples",
+                        font: {
+                            color: "#EEEEEE"
+                        }
+                    },
+                    plot_bgcolor: "#202020",
+                    paper_bgcolor: "#202020",
+                    text_color: "#EEEEEE",
+                    xaxis: {
+                        title: 'Date & Time of Reading',
+                        showgrid: false,
+                        zeroline: false,
+                        color: "#EEEEEE"
+                    },
+                    yaxis: {
+                        title: 'PM 2.5 Reading',
+                        showline: false,
+                        color: "#EEEEEE"
+                    }
+                };
+
+                Plotly.plot(document.getElementById("pa_plot"), plotly_data, layout);
+
+                setInterval(() => {
+                    $.ajax({
+                        url: url,
+                        dataType: 'jsonp',
+                        success: function (data) {
+                            vals = data;
+                            var xs = [];
+                            var ys = [];
+                            for (var i in vals[currentSelection]) {
+                                xs.push(vals[currentSelection][i][1]);
+                                ys.push(vals[currentSelection][i][0]);
+                            }
+
+                            var plotly_data = [{
+                                x: xs,
+                                y: ys,
+                                mode: 'lines+markers',
+                                name: 'PM 2.5 Time Series',
+                                line: {
+                                    shape: 'hvh'
+                                }
+                            }];
+
+                            Plotly.react(document.getElementById("pa_plot"), plotly_data, layout);
+                        }
+                    });
+                }, 1000);
             }
-        };
-
-        Plotly.plot(document.getElementById("pa_plot"), data, layout);
-
-        // setInterval(() => {
-        //     // Repeated every minute:
-        // }, 1000);
-        // document.getElementById("ip_storage").innerText = ip;
+        });
     }
     $.ajax({
         url: "http://150.182.130.194:3100/api",

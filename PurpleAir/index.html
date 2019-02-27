@@ -49,13 +49,31 @@
                 Purple Air readings come in every 1-2 minutes. This graph will update automatically over time and
                 resets when you reload or exit and re-enter the page.
             </div>
-            <div id="pa_plot" style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;">
-                <!-- Populated by Plotly.js -->
+        </div>
+
+        <center>
+            <div class="ui buttons">
+                <button class="ui button" onclick="change(this, 'central')" id="central">
+                    Central
+                </button>
+                <button class="ui button" onclick="change(this, 'douglas')" , id="douglas">
+                    Douglas
+                </button>
+                <button class="ui button" onclick="change(this, 'peeples')" , id="peeples">
+                    Peeples
+                </button>
+                <button class="ui button" onclick="change(this, 'magnolia')" , id="magnolia">
+                    Magnolia
+                </button>
             </div>
+        </center>
+        <div id="pa_plot" style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;">
+            <!-- Populated by Plotly.js -->
         </div>
     </div>
 
     <!-- Used for IP storage from checkConnection() -->
+
     <div id="ip_storage" style="display: none"></div>
 
 </body>
