@@ -78,38 +78,65 @@
 
             <div class="ui horizontal divider"></div>
             <div class="video_streams_section" style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;">
-                <div class="ui icon buttons">
-                    <button class="ui button" onclick="location.assign('../YOLOCounting#video')">
-                        <i class="sync icon"></i>
-                    </button>
 
-                    <button class="ui red button" id="hide_button" onclick="toggleVideo(this)">
-                        <i class="stop icon" id="hide_button_icon"></i>
-                    </button>
-
-                    <button class="ui button" onclick="location.assign(document.getElementById('video').getAttribute('data-url'))">
-                        <i class="expand arrows alternate icon"></i>
-                    </button>
+                <div class="ui stackable two column grid">
+                    <div class="ui row">
+                        <!-- Video Control Buttons -->
+                        <div class="ui column">
+                            <div class="ui inverted center aligned segment">
+                                <div>
+                                    <div class="ui blue pointing below label">
+                                        Video Controls
+                                    </div>
+                                </div>
+                                <div class="ui responsive buttons">
+                                    <button class="ui labeled icon button" onclick="location.assign('../YOLOCounting#video')">
+                                        <i class="sync icon"></i> Refresh
+                                    </button>
+                                    <button class="ui labeled red icon button" id="hide_button" onclick="toggleVideo(this)">
+                                        <i class="stop icon" id="hide_button_icon"></i>
+                                        Hide Stream
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Video Stream Buttons -->
+                        <div class="ui column">
+                            <div class="ui inverted center aligned segment">
+                                <div>
+                                    <div class="ui blue pointing below label">
+                                        Video Streams
+                                    </div>
+                                </div>
+                                <div class="ui responsive buttons" id="video_switches">
+                                    <!-- Populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="ui inverted attached segment">
-                    <div class="ui rounded embed" data-url="http://150.182.130.194:3031/video_feed" id="video" onclick="openInTab()">
-                        <center>
+                <div class="ui inverted segment">
+                    <!-- Create the embedded video feed -->
+                    <div class="ui rounded embed" id="video" data-url="http://150.182.130.194:3031/video_feed">
+                        <!-- Attach the "fullscreen" button: -->
+                        <a class="ui blue huge right corner label" onclick="location.assign(document.getElementById('video').getAttribute('data-url'))">
+                            <i class="expand arrows alternate icon" style="cursor: pointer"></i>
+                        </a>
+                        <!-- Backup code if the video embed fails: -->
+                        <div class="ui center aligned vertical segment">
                             <div class="ui huge steps">
                                 <div class="step">
                                     <i class="large icons">
                                         <i class="red video icon"></i>
-                                    </i>Video Feed is Currently Offline
+                                    </i>
+                                    Video Feed is Currently Offline
                                 </div>
                             </div>
-                        </center>
+                        </div>
                     </div>
                 </div>
-                <div class="ui icon buttons" id="video_switches">
-                    <div class="ui disabled button" >Streams:</div>
-                </div>
             </div>
-
         </div>
     </div>
 </body>
