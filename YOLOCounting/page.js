@@ -4,9 +4,6 @@ var videoVisible = true;
 var videoPorts = [3031, 3030];
 
 function init() {
-    if (mobileAndTabletcheck()) {
-        $('.ui.buttons').addClass("small");
-    }
     checkConnection();
 
     $(document)
@@ -30,8 +27,6 @@ function init() {
             document.getElementById("video_switches").innerHTML += "<div class='ui button' onclick='changeLiveStream(this, " + videoPorts[i] + ")'>" + i + "</div>";
         }
     }
-
-    
 }
 
 function changeLiveStream(element, port) {

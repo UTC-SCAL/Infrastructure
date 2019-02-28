@@ -141,3 +141,7 @@ body.pushable>.pusher {
 .ui.text.container {
 	width: 100%;
 }
+
+.attached.label {
+	z-index: 2;
+}
