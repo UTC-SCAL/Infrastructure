@@ -131,18 +131,14 @@ function checkConnection() {
 }
 
 function toggleVideo(element) {
-    // Return if the button is disabled; do nothing
-    if ($(element).hasClass("disabled")) {
-        return;
-    }
-
     if (videoVisible) {
-        // $("#video").hide("slow");
         $("#video").embed("destroy");
+        $("#video_fail").hide();
+        var URL = document.getElementById("video").getAttribute("data-url");
+        document.getElementById("embed_bg").innerHTML = "<img src='" + URL + "'>";
 
     } else {
         $("#video").embed();
-        // $("#video").show("slow");
     }
     videoVisible = !videoVisible;
     $(element).removeClass(videoVisible ? "green" : "red");

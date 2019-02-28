@@ -97,7 +97,6 @@
                     <!-- Create the embedded video feed -->
                     <div class="ui rounded embed" id="video" data-url="http://150.182.130.194:3031/video_feed">
                         <!-- Stop / Start button: -->
-
                         <a class="ui red huge left corner label" id="hide_button" onclick="toggleVideo(this)">
                             <i class="stop icon" style="cursor: pointer"></i>
                         </a>
@@ -106,8 +105,8 @@
                             <i class="expand arrows alternate icon" style="cursor: pointer"></i>
                         </a>
                         <!-- Backup code if the video embed fails: -->
-                        <div class="ui center aligned vertical segment">
-                            <div class="ui huge steps">
+                        <div class="ui center aligned vertical segment" id="embed_bg">
+                            <div class="ui huge steps" id="video_fail">
                                 <div class="step">
                                     <i class="large icons">
                                         <i class="red video icon"></i>
