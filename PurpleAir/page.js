@@ -97,7 +97,9 @@ function getIP() {
                     }
                 };
 
-                Plotly.plot(document.getElementById("pa_plot"), plotly_data, layout);
+                Plotly.plot(document.getElementById("pa_plot"), plotly_data, layout, {
+                    responsive: true
+                });
                 $("#plot_segment").removeClass("loading");
 
                 setInterval(() => {
