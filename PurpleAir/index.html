@@ -47,12 +47,17 @@
                 variety of information including temperature, humidity, particle matter content and more. Below is a
                 realtime demonstration of the PurpleAir readings throughout the testbed. These readings come from a
                 server which grabs the data from our Kafka servers, and publishes it in a way that can be accessed
-                anywhere.
+                anywhere. Below shows the last hour's worth of Purple Air PM2.5 sensor data.
             </div>
         </div>
 
-        <center>
-            <div class="ui buttons">
+        <div class="ui inverted segment" style="text-align: center;">
+            <div>
+                <div class="ui blue pointing below label">
+                    Sensors
+                </div>
+            </div>
+            <div class="ui buttons" style="margin: auto;">
                 <button class="ui button" onclick="change(this, 'central')" id="central">
                     Central
                 </button>
@@ -66,12 +71,33 @@
                     Magnolia
                 </button>
             </div>
-        </center>
-        <div id="pa_plot" style="max-width: 1280px; max-height: 720px; width: 80%; margin: auto;">
-            <!-- Populated by Plotly.js -->
+        </div>
+
+        <div class="ui inverted segment" style="text-align: center;" id="plot_segment">
+            <div id="pa_plot">
+                <!-- Populated by Plotly.js -->
+            </div>
+        </div>
+
+        <div class="ui inverted segment" style="text-align: center;">
+            <div class="ui buttons">
+                <button class="ui button" onclick="changeChart(this, 'spline')" , id="spline">
+                    Spline
+                </button>
+                <button class="ui button" onclick="changeChart(this, 'hvh')" , id="hvh">
+                    HVH
+                </button>
+                <button class="ui button" onclick="changeChart(this, 'linear')" id="linear">
+                    Linear
+                </button>
+            </div>
+            <div>
+                <div class="ui blue pointing above label">
+                    Graph Type
+                </div>
+            </div>
         </div>
     </div>
-
 </body>
 
 </html>

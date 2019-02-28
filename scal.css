@@ -58,6 +58,11 @@ body {
 	color: #EEEEEE;
 }
 
+.ui.inverted.segment {
+	background-color: #191919;
+	color: #EEEEEE;
+}
+
 body.pushable>.pusher {
 	background-color: #191919;
 	color: #EEEEEE;

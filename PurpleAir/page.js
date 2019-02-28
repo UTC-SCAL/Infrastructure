@@ -1,12 +1,23 @@
 var vals = {};
 var currentSelection = "";
+var chartType = "";
 
 function change(element, graph) {
+    $("#plot_segment").addClass("loading");
     if (currentSelection !== "") {
         $("#" + currentSelection).removeClass("active");
     }
     $(element).addClass("active");
     currentSelection = graph;
+}
+
+function changeChart(element, type) {
+    $("#plot_segment").addClass("loading");
+    if (chartType !== "") {
+        $("#" + chartType).removeClass("active");
+    }
+    $(element).addClass("active");
+    chartType = type;
 }
 
 function init() {
@@ -25,6 +36,7 @@ function init() {
                 });
         });
     $("#central").click();
+    $("#spline").click();
     getIP();
 }
 
@@ -53,7 +65,7 @@ function getIP() {
                     mode: 'lines+markers',
                     name: 'PM 2.5 Time Series',
                     line: {
-                        shape: 'hvh'
+                        shape: chartType
                     }
                 }];
 
@@ -81,7 +93,8 @@ function getIP() {
                 };
 
                 Plotly.plot(document.getElementById("pa_plot"), plotly_data, layout);
-
+                $("#plot_segment").removeClass("loading");
+                
                 setInterval(() => {
                     $.ajax({
                         url: url,
@@ -101,7 +114,7 @@ function getIP() {
                                 mode: 'lines+markers',
                                 name: 'PM 2.5 Time Series',
                                 line: {
-                                    shape: 'hvh'
+                                    shape: chartType
                                 }
                             }];
 
@@ -130,6 +143,7 @@ function getIP() {
                             };
 
                             Plotly.react(document.getElementById("pa_plot"), plotly_data, layout);
+                            $("#plot_segment").removeClass("loading");
                         }
                     });
                 }, 1000);
