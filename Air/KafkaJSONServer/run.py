@@ -1,50 +1,84 @@
-from flask import Flask, abort, request, jsonify, current_app
-import json
+"""Creates a Flask server to read from KAFKA and produce a JSON endpoint"""
 import configparser
-from threading import Thread
-from confluent_kafka import Consumer, KafkaError
-from functools import wraps
+import json
+import logging
 import time
 from datetime import datetime
+from functools import wraps
+from threading import Thread
 
-import logging
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
-
-app = Flask(__name__)
-
-peeples = []
-central = []
-douglas = []
-magnolia = []
+from confluent_kafka import Consumer
+from flask import Flask, current_app, jsonify, request
 
 
-def support_jsonp(f):
-    """Wraps JSONified output for JSONP"""
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        callback = request.args.get('callback', False)
-        if callback:
-            content = str(callback) + '(' + str(f().data.decode()) + ')'
-            return current_app.response_class(content, mimetype='application/json')
-        else:
-            return f(*args, **kwargs)
-    return decorated_function
+class JSON_Server:
+    """A JSON Flask Server for passing PA Kafka data"""
 
+    def __init__(self, port):
+        self.port = port
+        self.flask = Flask("{}:{}".format(__name__, self.port))
+        self.thread = Thread(daemon=True, target=self.flask.run, kwargs={
+            'host': '0.0.0.0',
+            'port': self.port,
+            'debug': False,
+            'threaded': True
+        })
+        # The local arrays we want to update
+        self.peeples = []
+        self.central = []
+        self.douglas = []
+        self.magnolia = []
+        # Disable logging as the webpage hits the site once a second
+        logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
-@app.route('/api', methods=['GET', 'HEAD'])
-@support_jsonp
-def foo():
-    d = {
-        "peeples": peeples,
-        "central": central,
-        "douglas": douglas,
-        "magnolia": magnolia
-    }
-    return jsonify(d)
+    def start(self):
+        """Starts up the JSON server thread"""
+        @self.flask.route('/api', methods=['GET', 'HEAD'])
+        @self.support_jsonp
+        def json_api():
+            """JSON endpoint of all sensors"""
+            ret = {
+                "peeples": self.peeples,
+                "central": self.central,
+                "douglas": self.douglas,
+                "magnolia": self.magnolia
+            }
+            return jsonify(ret)
+        self.thread.start()
+
+    def support_jsonp(self, f):
+        """Wraps JSONified output for JSONP"""
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            callback = request.args.get('callback', False)
+            if callback:
+                content = str(callback) + '(' + str(f().data.decode()) + ')'
+                return current_app.response_class(content, mimetype='application/json')
+            else:
+                return f(*args, **kwargs)
+        return decorated_function
+
+    def update(self, sensor_id, json_msg):
+        """Updates the sensor_id's array with the new info"""
+        if sensor_id == "84:f3:eb:44:d8:24":
+            to_modify = self.central
+        elif sensor_id == "84:f3:eb:91:44:60":
+            to_modify = self.douglas
+        elif sensor_id == "84:f3:eb:91:44:38":
+            to_modify = self.peeples
+        elif sensor_id == "84:f3:eb:45:1a:53":
+            to_modify = self.magnolia
+
+        to_modify.append((json_msg["pm2_5_atm"], str(
+            datetime.fromtimestamp(time.time()))))
+
+        # keep only 60 messages for memory purposes
+        if len(to_modify) > 60:
+            del to_modify[0]
 
 
 def main():
+    """A loop which reads from kafka and appends to local arrays"""
     config = configparser.ConfigParser()
     config.read('config.ini')
 
@@ -61,44 +95,22 @@ def main():
         config['KAFKA']['magnolia_topic']
     ])
 
+    json_server = JSON_Server(3100)
+    json_server.start()
+
     while True:
         try:
             msg = consumer.poll(1.0)
-            if (not msg):
+            if (not msg) or msg.error():
                 continue
 
-            if msg.error():
-                if msg.error().code() == KafkaError._PARTITION_EOF:
-                    continue
-                else:
-                    print("Kafka error: {}".format(msg.error()))
-                    continue
-
-
-            to_modify = None
             json_msg = json.loads(msg.value().decode('utf-8'))
-
-            if json_msg["SensorId"] == "84:f3:eb:44:d8:24":
-                to_modify = central
-            elif json_msg["SensorId"] == "84:f3:eb:91:44:60":
-                to_modify = douglas
-            elif json_msg["SensorId"] == "84:f3:eb:91:44:38":
-                to_modify = peeples
-            elif json_msg["SensorId"] == "84:f3:eb:45:1a:53":
-                to_modify = magnolia
-
-            to_modify.append((json_msg["pm2_5_atm"], str(datetime.fromtimestamp(time.time()))))
-
-            # keep only 50 messages for memory purposes
-            if len(to_modify) > 50:
-                del to_modify[0]
-
+            json_server.update(json_msg["SensorId"], json_msg)
         except KeyboardInterrupt:
+
             break
     consumer.close()
 
-if __name__ == "__main__":
-    MAIN_THREAD = Thread(target=main)
-    MAIN_THREAD.start()
-    app.run(host='0.0.0.0', port=3100, threaded=True, debug=False)
 
+if __name__ == "__main__":
+    main()
