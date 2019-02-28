@@ -2,7 +2,6 @@ var videoPort = 3031;
 var lastButtonClicked = null;
 var videoVisible = true;
 var videoPorts = [3031, 3030];
-var state = false;
 
 function init() {
     if (mobileAndTabletcheck()) {
@@ -32,7 +31,7 @@ function init() {
         }
     }
 
-    $("#s").click();
+    
 }
 
 function changeLiveStream(element, port) {
@@ -62,7 +61,7 @@ function openInTab() {
 function checkConnection() {
     function setVideoIP(ip) {
         document.getElementById("video").setAttribute("data-url", (ip + ":" + videoPort + "/video_feed"));
-        $('#video').embed();
+        $("#s").click();
         return ip;
     }
     $.ajax({
@@ -132,11 +131,13 @@ function checkConnection() {
 
 function toggleVideo(element) {
     if (videoVisible) {
+        var URL = document.getElementById("video").getAttribute("data-url") + "?";
+        URL = URL.replace(/\?[^\n]*$/, "?") + (new Date()).getTime();
+        document.getElementById("embed_bg").innerHTML = "";
+        document.getElementById("embed_bg").removeAttribute("class");
+        document.getElementById("embed_bg").setAttribute("class", "ui active inverted placeholder");
+        document.getElementById("embed_bg").setAttribute("style", "width: 100%; max-width: 100%;");
         $("#video").embed("destroy");
-        $("#video_fail").hide();
-        var URL = document.getElementById("video").getAttribute("data-url");
-        document.getElementById("embed_bg").innerHTML = "<img src='" + URL + "'>";
-
     } else {
         $("#video").embed();
     }
