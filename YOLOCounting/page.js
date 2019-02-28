@@ -137,16 +137,17 @@ function toggleVideo(element) {
     }
 
     if (videoVisible) {
-        $("#video").hide("slow");
+        // $("#video").hide("slow");
+        $("#video").embed("destroy");
+
     } else {
-        $("#video").show("slow");
+        $("#video").embed();
+        // $("#video").show("slow");
     }
     videoVisible = !videoVisible;
     $(element).removeClass(videoVisible ? "green" : "red");
     $(element).addClass(!videoVisible ? "green" : "red");
-    element.innerText = (videoVisible ? "Hide Stream" : "Show Stream");
-    $("#hide_button_icon").removeClass(videoVisible ? "play" : "stop");
-    $("#hide_button_icon").addClass(videoVisible ? "stop" : "play");
+    element.innerHTML = "<i class='" + (videoVisible ? "stop" : "play") + " icon' style='cursor: pointer'></i>";
 }
 
 function toggleSidebar() {
