@@ -14,10 +14,7 @@ A clear and concise description of what the bug is.
 Explain time of day, lighting, weather, type of object, etc. - any context to help picture the problem clearly
 
 **Expected behavior**
-A clear and concise description of what you expected to happen.
+If applicable, what *should've* happened that didn't?
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Additional context**
-Add any other context about the problem here.
+If possible, add screenshots to help explain your problem.
