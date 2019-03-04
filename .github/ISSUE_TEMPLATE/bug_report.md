@@ -1,8 +1,8 @@
 ---
-name: Bug report
+name: Object Tracker Bug Report
 about: Create a report to help us improve
 title: ''
-labels: bug
+labels: bug, tracker, dev
 assignees: oitsjustjose
 
 ---
