@@ -14,7 +14,7 @@ from flask import Flask, current_app, jsonify, request
 class JSON_Server:
     """A JSON Flask Server for passing PA Kafka data"""
 
-    def __init__(self, port):
+    def __init__(self, port, metric):
         self.port = port
         self.flask = Flask("{}:{}".format(__name__, self.port))
         self.thread = Thread(daemon=True, target=self.flask.run, kwargs={
@@ -28,6 +28,7 @@ class JSON_Server:
         self.central = []
         self.douglas = []
         self.magnolia = []
+        self.pa_metric = metric
         # Disable logging as the webpage hits the site once a second
         logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
@@ -69,7 +70,7 @@ class JSON_Server:
         elif sensor_id == "84:f3:eb:45:1a:53":
             to_modify = self.magnolia
 
-        to_modify.append((json_msg["pm2_5_atm"], str(
+        to_modify.append((json_msg[self.pa_metric], str(
             datetime.fromtimestamp(time.time()))))
 
         # keep only 60 messages for memory purposes
@@ -95,7 +96,7 @@ def main():
         config['KAFKA']['magnolia_topic']
     ])
 
-    json_server = JSON_Server(3100)
+    json_server = JSON_Server(3100, "pm2_5_atm")
     json_server.start()
 
     while True:
