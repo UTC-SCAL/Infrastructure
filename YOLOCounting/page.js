@@ -1,14 +1,13 @@
 var videoPort = 3031;
 var lastButtonClicked = null;
 var videoVisible = true;
-// var videoPorts = {
-//     "Anonymous": 3030,
-//     "Central": 3031,
-//     "Douglas": 3032,
-//     "Peeples": 3033,
-//     "Magnolia": 3034
-// }
-var videoPorts = [3031, 3030];
+var videoPorts = {
+    "Anonymous": 3030,
+    "Central": 3031,
+    "Douglas": 3032,
+    "Peeples": 3033,
+    "Magnolia": 3034
+};
 
 function init() {
     checkConnection();
