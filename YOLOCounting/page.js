@@ -1,7 +1,13 @@
 var videoPort = 3031;
 var lastButtonClicked = null;
 var videoVisible = true;
-var videoPorts = [3031, 3030];
+var videoPorts = {
+    "Anonymous": 3030,
+    "Central": 3031,
+    "Douglas": 3032,
+    "Peeples": 3033,
+    "Magnolia": 3034
+}
 
 function init() {
     checkConnection();
@@ -21,7 +27,7 @@ function init() {
         });
     for (var i in videoPorts) {
         // Video 0 should have '#s' id to be clicked first
-        if (i == 0) {
+        if (i === "Anonymous") {
             document.getElementById("video_switches").innerHTML += "<div class='ui button' onclick='changeLiveStream(this, " + videoPorts[i] + ")' id='s'>" + i + "</div>";
         } else {
             document.getElementById("video_switches").innerHTML += "<div class='ui button' onclick='changeLiveStream(this, " + videoPorts[i] + ")'>" + i + "</div>";
