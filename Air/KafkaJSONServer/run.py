@@ -73,8 +73,8 @@ class JSON_Server:
         to_modify.append((json_msg[self.pa_metric], str(
             datetime.fromtimestamp(time.time()))))
 
-        # keep only 60 messages for memory purposes
-        if len(to_modify) > 60:
+        # keep only a day's worth of memory messages for memory purposes
+        if len(to_modify) > 1440:
             del to_modify[0]
 
 
@@ -104,9 +104,12 @@ def main():
             msg = consumer.poll(1.0)
             if (not msg) or msg.error():
                 continue
-
-            json_msg = json.loads(msg.value().decode('utf-8'))
-            json_server.update(json_msg["SensorId"], json_msg)
+            try:
+                json_msg = json.loads(msg.value().decode('utf-8'))
+                json_server.update(json_msg["SensorId"], json_msg)
+            except json.decoder.JSONDecodeError:
+                # In the odd chance that the JSON can't be decoded...
+                continue
         except KeyboardInterrupt:
 
             break
