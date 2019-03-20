@@ -50,53 +50,12 @@
                 anywhere. Below shows the last hour's worth of Purple Air PM2.5 sensor data.
             </div>
         </div>
-
-        <div class="ui inverted segment" style="text-align: center;">
-            <div>
-                <div class="ui blue pointing below label">
-                    Sensors
-                </div>
-            </div>
-            <div class="ui buttons" style="margin: auto;">
-                <button class="ui button" onclick="change(this, 'central')" id="central">
-                    Central
-                </button>
-                <button class="ui button" onclick="change(this, 'douglas')" , id="douglas">
-                    Douglas
-                </button>
-                <button class="ui button" onclick="change(this, 'peeples')" , id="peeples">
-                    Peeples
-                </button>
-                <button class="ui button" onclick="change(this, 'magnolia')" , id="magnolia">
-                    Magnolia
-                </button>
-            </div>
+        <div class="ui embed" id="grafana" data-url="https://grafana.utccuip.com/render/dashboard-solo/snapshot/P4tKWhvh4upZy6x9qdXGeznqtijT5r2i?orgId=1&from=1552973456143&to=1552995056143&var-sensors=p_0_5_um_b&var-SensorID=All&panelId=2&width=1000&height=500&tz=America%2FNew_York ">
+            <script>
+                $("#grafana").embed()
+            </script>
         </div>
 
-        <div class="ui inverted segment" style="text-align: center;" id="plot_segment">
-            <div id="pa_plot">
-                <!-- Populated by Plotly.js -->
-            </div>
-        </div>
-
-        <div class="ui inverted segment" style="text-align: center;">
-            <div class="ui responsive buttons">
-                <button class="ui button" onclick="changeChart(this, 'spline')" , id="spline">
-                    Spline
-                </button>
-                <button class="ui button" onclick="changeChart(this, 'hvh')" , id="hvh">
-                    HVH
-                </button>
-                <button class="ui button" onclick="changeChart(this, 'linear')" id="linear">
-                    Linear
-                </button>
-            </div>
-            <div>
-                <div class="ui blue pointing above label">
-                    Graph Type
-                </div>
-            </div>
-        </div>
     </div>
 </body>
 
