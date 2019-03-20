@@ -11,8 +11,13 @@ $(document)
                 }
             });
 
-        // $('img').hide();
-        // $('img').show("slow");
+        $('.ui.sidebar').sidebar({
+            transition: 'overlay'
+        });
+
+        $('.dropdown').dropdown({
+            on: "hover"
+        });
     });
 
 

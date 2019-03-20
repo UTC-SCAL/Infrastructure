@@ -1,14 +1,23 @@
  .ui.inverted.vertical.masthead.center.aligned.segment {
- 	background-image: url("./Resources/mastheadb.png");
- 	margin-bottom: 1em;
+ 	background-image: url("./Resources/mastheadc.png");
+ 	background-repeat: no-repeat;
+ 	background-attachment: fixed;
+ 	background-position: center top;
+ 	/* margin-bottom: 10em; */
+ 	background-color: #202F42;
  }
+
+ .ui.sidebar.inverted.vertical.menu {
+ 	overflow: visible !important;
+ }
+
 
  #header_text {
  	font-size: 3em;
  	display: flex;
  	justify-content: center;
  	flex-direction: column;
- 	height: 6em;
+ 	height: 8em;
  }
 
  .masthead.segment {
