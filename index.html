@@ -17,58 +17,59 @@
 <body>
 
     <!-- Header items - menu, logo, etc. -->
+    <div style="background-color: #E7E2D6">
+        <div class="ui container">
+            <div class="ui huge menu">
+                <a class="header item">Home</a>
+                <div class="ui dropdown item">
+                    Research
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" onclick="location.assign('./Research/Overview')">Overview</a>
+                        <a class="item" onclick="location.assign('./Research/Mobility')">Mobility</a>
+                        <a class="item" onclick="location.assign('./Research/Healthcare')">Healthcare</a>
+                        <a class="item" onclick="location.assign('./Research/Energy')">Energy</a>
+                        <a class="item" onclick="location.assign('./Research/Public Safety')">Public Safety</a>
+                        <a class="item" onclick="location.assign('./Research/Water')">Water</a>
+                        <a class="item" onclick="location.assign('./Research/Waste')">Waste</a>
+                        <a class="item" onclick="location.assign('./Research/Social Science')">Social Science</a>
+                    </div>
+                </div>
+                <div class="ui dropdown item">
+                    Testbed
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" onclick="location.assign('./Testbed/Overview')">Overview</a>
+                        <a class="item" onclick="location.assign('./Testbed/Features')">Features</a>
+                        <a class="item" onclick="location.assign('./Testbed/Object Counting')">Object Counting</a>
+                        <a class="item" onclick="location.assign('./Testbed/Air Quality')">Air Quality</a>
+                    </div>
+                </div>
+                <a class="item" onclick="location.assign('./People')">People</a>
+                <a class="item" onclick="location.assign('./Partners')">Partners</a>
+                <a class="item" onclick="location.assign('./Contact')">Contact</a>
+                <a class="item" onclick="location.assign('./Photo Gallery')">Photo Gallery</a>
+                <a class="item" onclick="location.assign('./Events')">Events</a>
+            </div>
+        </div>
+        <div class="ui inverted responsive vertical masthead center aligned segment">
+            <div class="ui text container">
+                <h3 class="ui inverted header" style="color: #e0aa0f;">University of Tennessee of Chattanooga</h3>
+                <h1 class="ui inverted header" id="header_text">Research Nexus</h1>
+                <p style="font-size: 1.1em;"><b>The Center of Urban Informatics and Progress</b> (CUIP) is a new nexus
+                    of research
+                    and innovation at the University of Tennessee at Chattanooga that will engage experts from across
+                    the statewide UT system in cross-disciplinary research focused on solutions to urban challenges.
+                    The vision for CUIP centers around research initiatives related to Energy, Mobility, Healthcare,
+                    Public Safety, Water, and Waste that will directly or indirectly benefit local citizens while
+                    developing methods and models for use around the world. CUIP is housed at UTC as an independent
+                    research entity, underscoring Chattanooga’s emergence as an innovation hub.</p>
+            </div>
+        </div>
+    </div>
+
     <div class="ui container">
-        <div class="ui huge menu">
-            <a class="header item">Home</a>
-            <div class="ui dropdown item">
-                Research
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" onclick="location.assign('./Research/Overview')">Overview</a>
-                    <a class="item" onclick="location.assign('./Research/Mobility')">Mobility</a>
-                    <a class="item" onclick="location.assign('./Research/Healthcare')">Healthcare</a>
-                    <a class="item" onclick="location.assign('./Research/Energy')">Energy</a>
-                    <a class="item" onclick="location.assign('./Research/Public Safety')">Public Safety</a>
-                    <a class="item" onclick="location.assign('./Research/Water')">Water</a>
-                    <a class="item" onclick="location.assign('./Research/Waste')">Waste</a>
-                    <a class="item" onclick="location.assign('./Research/Social Science')">Social Science</a>
-                </div>
-            </div>
-            <div class="ui dropdown item">
-                Testbed
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" onclick="location.assign('./Testbed/Overview')">Overview</a>
-                    <a class="item" onclick="location.assign('./Testbed/Features')">Features</a>
-                    <a class="item" onclick="location.assign('./Testbed/Object Counting')">Object Counting</a>
-                    <a class="item" onclick="location.assign('./Testbed/Air Quality')">Air Quality</a>
-                </div>
-            </div>
-            <a class="item" onclick="location.assign('./People')">People</a>
-            <a class="item" onclick="location.assign('./Partners')">Partners</a>
-            <a class="item" onclick="location.assign('./Contact')">Contact</a>
-            <a class="item" onclick="location.assign('./Photo Gallery')">Photo Gallery</a>
-            <a class="item" onclick="location.assign('./Events')">Events</a>
-        </div>
-    </div>
-
-    <div class="ui inverted responsive vertical masthead center aligned segment">
-        <div class="ui text container">
-            <h3 class="ui inverted header" style="color: #e0aa0f;">University of Tennessee of Chattanooga</h3>
-            <h1 class="ui inverted header" id="header_text">Research Nexus</h1>
-            <p style="font-size: 1.1em;"><b>The Center of Urban Informatics and Progress</b> (CUIP) is a new nexus
-                of research
-                and innovation at the University of Tennessee at Chattanooga that will engage experts from across
-                the statewide UT system in cross-disciplinary research focused on solutions to urban challenges.
-                The vision for CUIP centers around research initiatives related to Energy, Mobility, Healthcare,
-                Public Safety, Water, and Waste that will directly or indirectly benefit local citizens while
-                developing methods and models for use around the world. CUIP is housed at UTC as an independent
-                research entity, underscoring Chattanooga’s emergence as an innovation hub.</p>
-        </div>
-    </div>
-
-    <div class="vertical stripe segment">
-        <div class="ui container" style="margin-bottom: 1em;">
+        <div class="vertical stripe segment" style="background-color: #E7E2D6;">
             <h1 class="ui centered huge header" style="margin-bottom:2em;">
                 Elevated Collaboration for Connected Communities
             </h1>
@@ -100,31 +101,28 @@
 
             <div class="ui divider"></div>
 
-            <div class="ui segment">
-
-                <div class="ui text container">
-                    <img class="ui left medium floated image" src="Resources/building.jpg">
-                    <h1 class="ui centered huge header" style="margin-bottom:2em;">
-                        Urban Pioneers & Sustainable Development
-                    </h1>
-                    <p>The city of Chattanooga has emerged as a pioneer in urban renewal and sustainable
-                        development. As part of this renewal an extraordinary infrastructure has been put in
-                        place
-                        that includes high-speed, high bandwidth information networks that connect a large
-                        number
-                        of citizens to the internet. This infrastructure provides the foundation for the
-                        collection
-                        and exploitation of large amounts
-                        of heterogeneous data intended to improve city services. It allows for more effective
-                        transportation systems, energy efficiency, production and delivery, and for improving
-                        quality of life in
-                        general, including human wellness and health management and care delivery. As a
-                        regional
-                        partner,
-                        CUIP has many ties and collaborations with the city of Chattanooga and plays a major
-                        role
-                        in the Chattanooga Smart Community Collaborative.</p>
-                </div>
+            <div class="ui text container">
+                <img class="ui left medium floated image" src="Resources/building.jpg">
+                <h1 class="ui centered huge header" style="margin-bottom:2em;">
+                    Urban Pioneers & Sustainable Development
+                </h1>
+                <p>The city of Chattanooga has emerged as a pioneer in urban renewal and sustainable
+                    development. As part of this renewal an extraordinary infrastructure has been put in
+                    place
+                    that includes high-speed, high bandwidth information networks that connect a large
+                    number
+                    of citizens to the internet. This infrastructure provides the foundation for the
+                    collection
+                    and exploitation of large amounts
+                    of heterogeneous data intended to improve city services. It allows for more effective
+                    transportation systems, energy efficiency, production and delivery, and for improving
+                    quality of life in
+                    general, including human wellness and health management and care delivery. As a
+                    regional
+                    partner,
+                    CUIP has many ties and collaborations with the city of Chattanooga and plays a major
+                    role
+                    in the Chattanooga Smart Community Collaborative.</p>
             </div>
 
             <div class="ui divider"></div>
@@ -147,11 +145,11 @@
                 </div>
             </div>
 
-            <div class="ui divider"></div>
-
             <h1 class="ui centered huge header" style="margin-bottom:2em;">
                 Our Approach
             </h1>
+
+            <div class="ui divider"></div>
 
             <div class="ui text container">
                 <p>With our particular approach to collaborative and informative research that will benefit
@@ -163,40 +161,35 @@
                     Community
                     Collaborative.</p>
             </div>
-
-            <div class="ui divider">
-            </div>
-
-            <div class="ui segment">
-                <div class="ui text container">
-                    <img class="ui left medium floated image" src="Resources/Mina.jpg">
-                    <h1 class="ui centered huge header" style="margin-bottom:2em;">
-                        CUIP is lead by Mina Sartipi
-                    </h1>
-                    <p>Mina also serves as a UC Foundation Professor in the Computer Science and
-                        Engineering
-                        Department and has led numerous interdisciplinary research initiatives as a
-                        leader
-                        of
-                        UTC’s Smart Cities and Urban Science & Technology program. Dr. Sartipi has
-                        been
-                        awarded
-                        major grants from the National Science Foundation (NSF), National
-                        Institutes of
-                        Health
-                        (NIH), the State of Tennessee and industry towards her research in data
-                        analytics
-                        and
-                        smart communities</p>
-                </div>
-            </div>
+        </div>
+    </div>
+    <div class="ui navy container">
+        <div class="ui text container">
+            <img class="ui left medium floated image" src="Resources/Mina.jpg">
+            <h1 class="ui centered inverted  huge header" style="margin-bottom:2em;">
+                CUIP is lead by Mina Sartipi
+            </h1>
+            <p>Mina also serves as a UC Foundation Professor in the Computer Science and
+                Engineering
+                Department and has led numerous interdisciplinary research initiatives as a
+                leader
+                of
+                UTC’s Smart Cities and Urban Science & Technology program. Dr. Sartipi has
+                been
+                awarded
+                major grants from the National Science Foundation (NSF), National
+                Institutes of
+                Health
+                (NIH), the State of Tennessee and industry towards her research in data
+                analytics
+                and
+                smart communities</p>
         </div>
     </div>
 
-    <div class="ui segment">
-        <div class="ui divider"></div>
+    <div class="ui segment" style="background-color: #FFF">
         <div class="ui vertical footer segment">
-            <div class="ui center aligned container">
+            <div class="ui center aligned container" style="background-color: #FFF">
                 <div class="ui stackable three column grid">
                     <div class="ui column">
                         <h4 class="ui header">© 2019 CUIP</h4>
@@ -226,7 +219,6 @@
             </div>
         </div>
 
-        <div class="ui divider"></div>
         <img src="Resources/logo.png" class="ui centered small image">
         <center>
             <div class="ui horizontal small divided link list">

@@ -4,7 +4,9 @@
  	background-attachment: fixed;
  	background-position: center top;
  	background-color: #202F42;
+
  }
+
 
  #header_text {
  	font-size: 3em;
@@ -19,13 +21,17 @@
  	height: 64em;
  }
 
+ .ui.container {
+ 	max-width: 70%;
+ 	width: 70%;
+ 	padding-top: 1em;
+ 	padding-bottom: 1em;
+ }
+
  .ui.menu {
  	background-color: #E7E2D6;
  }
 
- body {
- 	background-color: #E7E2D6;
- }
 
  .ui.segment {
  	background-color: #E7E2D6;
@@ -50,4 +56,14 @@
  a:hover {
  	color: #ffd45e;
  	font-weight: bold;
+ }
+
+ .ui.navy.container {
+ 	background-color: #202F42;
+ 	color: #FFF;
+ }
+
+ .ui.navy.container>.ui.text.container {
+ 	background-color: #202F42;
+ 	color: #FFF;
  }
