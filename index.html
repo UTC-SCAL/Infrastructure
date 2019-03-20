@@ -8,7 +8,6 @@
     <title>CUIP</title>
     <script src="./Libraries/jquery-3.3.1.min.js"></script>
     <script src="./Libraries/semantic/out/semantic.min.js"></script>
-    <!-- <script src="./Libraries/bootstrap.min.js"></script> -->
     <script src="page.js"></script>
     <link rel="stylesheet" type="text/css" href="./Libraries/semantic/out/semantic.min.css">
     <link rel="stylesheet" href="./Libraries/bootstrap.css">
@@ -22,17 +21,17 @@
             Research
             <i class="dropdown icon"></i>
             <div class="menu">
-                <a class="item">Overview</a>
-                <a class="item">Mobility</a>
-                <a class="item">Healthcare</a>
-                <a class="item">Energy</a>
-                <a class="item">Public Safety</a>
-                <a class="item">Water</a>
-                <a class="item">Waste</a>
-                <a class="item">Social Science</a>
+                <a class="item" onclick="location.assign('./Research/Overview')">Overview</a>
+                <a class="item" onclick="location.assign('./Research/Mobility')">Mobility</a>
+                <a class="item" onclick="location.assign('./Research/Healthcare')">Healthcare</a>
+                <a class="item" onclick="location.assign('./Research/Energy')">Energy</a>
+                <a class="item" onclick="location.assign('./Research/Public Safety')">Public Safety</a>
+                <a class="item" onclick="location.assign('./Research/Water')">Water</a>
+                <a class="item" onclick="location.assign('./Research/Waste')">Waste</a>
+                <a class="item" onclick="location.assign('./Research/Social Science')">Social Science</a>
             </div>
         </div>
-        <div class="ui dropdown item" onclick="location.assign('./Testbed')">
+        <div class="ui dropdown item">
             Testbed
             <i class="dropdown icon"></i>
             <div class="menu">
@@ -42,13 +41,11 @@
                 <a class="item" onclick="location.assign('./Testbed/Air Quality')">Air Quality</a>
             </div>
         </div>
-        <a class="item">People</a>
-        <a class="item">Partners</a>
-        <a class="item">Contact</a>
-        <a class="item">Photo Gallery</a>
-        <a class="item">Events</a>
-
-        <!-- <a onclick="location.assign('.')" class="header item">Home</a> -->
+        <a class="item" onclick="location.assign('./People')">People</a>
+        <a class="item" onclick="location.assign('./Partners')">Partners</a>
+        <a class="item" onclick="location.assign('./Contact')">Contact</a>
+        <a class="item" onclick="location.assign('./Photo Gallery')">Photo Gallery</a>
+        <a class="item" onclick="location.assign('./Events')">Events</a>
     </div>
     <div class="pusher">
         <div class="ui large inverted top fixed hidden menu" id="menubar">
@@ -203,53 +200,51 @@
                 </div>
             </div>
         </div>
-    </div>
 
-
-
-    <div class="ui divider"></div>
-
-    <div class="ui inverted vertical footer segment">
-        <div class="ui center aligned container">
-            <div class="ui stackable three column grid">
-                <div class="ui column">
-                    <h4 class="ui inverted header">© 2019 CUIP</h4>
-                    <div class="ui inverted link list">
-                        <div class="item">615 McCallie Ave</div>
-                        <div class="item">Chattanooga, TN 37403</div>
-                        <div class="item">(423) 425-5336</div>
-                        <div class="item">mina-sartipi@utc.edu</div>
-                    </div>
-                </div>
-                <div class="ui column">
-                    <h4 class="ui inverted header">Info</h4>
-                    <div class="ui inverted link list">
-                        <div class="item">Research</div>
-                        <div class="item">People</div>
-                        <div class="item">Publications</div>
-                        <div class="item">Open Positions</div>
-                    </div>
-                </div>
-                <div class="ui column">
-                    <h4 class="ui inverted header">Action</h4>
-                    <div class="ui inverted link list">
-                        <div class="item">Contact</div>
+        <div class="ui inverted segment">
+            <div class="ui divider"></div>
+            <div class="ui inverted vertical footer segment">
+                <div class="ui center aligned container">
+                    <div class="ui stackable three column grid">
+                        <div class="ui column">
+                            <h4 class="ui inverted header">© 2019 CUIP</h4>
+                            <div class="ui inverted link list">
+                                <div class="item">615 McCallie Ave</div>
+                                <div class="item">Chattanooga, TN 37403</div>
+                                <div class="item">(423) 425-5336</div>
+                                <div class="item">mina-sartipi@utc.edu</div>
+                            </div>
+                        </div>
+                        <div class="ui column">
+                            <h4 class="ui inverted header">Info</h4>
+                            <div class="ui inverted link list">
+                                <div class="item">Research</div>
+                                <div class="item">People</div>
+                                <div class="item">Publications</div>
+                                <div class="item">Open Positions</div>
+                            </div>
+                        </div>
+                        <div class="ui column">
+                            <h4 class="ui inverted header">Action</h4>
+                            <div class="ui inverted link list">
+                                <div class="item">Contact</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="ui divider"></div>
+            <img src="Resources/logo.png" class="ui centered small image">
+            <center>
+                <div class="ui horizontal inverted small divided link list">
+                    <a class="item" href="#">Site Map</a>
+                    <a class="item" href="#">Contact Us</a>
+                    <a class="item" href="#">Terms and Conditions</a>
+                    <a class="item" href="#">Privacy Policy</a>
+                </div>
+            </center>
         </div>
     </div>
-
-    <div class="ui divider"></div>
-    <img src="Resources/logo.png" class="ui centered small image">
-    <center>
-        <div class="ui horizontal inverted small divided link list">
-            <a class="item" href="#">Site Map</a>
-            <a class="item" href="#">Contact Us</a>
-            <a class="item" href="#">Terms and Conditions</a>
-            <a class="item" href="#">Privacy Policy</a>
-        </div>
-    </center>
 </body>
-
 </html>
