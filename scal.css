@@ -19,24 +19,24 @@
  	height: 64em;
  }
 
- body {
- 	background-color: #191919;
- 	color: #EEEEEE;
+ .ui.menu {
+ 	background-color: #E7E2D6;
  }
 
- .ui.inverted.segment {
- 	background-color: #191919;
- 	color: #EEEEEE;
+ body {
+ 	background-color: #E7E2D6;
+ }
+
+ .ui.segment {
+ 	background-color: #E7E2D6;
  }
 
  body.pushable>.pusher {
- 	background-color: #191919;
- 	color: #EEEEEE;
+ 	background-color: #E7E2D6;
  }
 
  .ui.text.segment {
- 	background-color: #191919;
- 	color: #EEEEEE;
+ 	background-color: #E7E2D6;
  }
 
  #menubar {
